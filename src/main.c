@@ -1,7 +1,10 @@
 #include "cub3d.h"
 
 int
-main(void)
+	main(int argc, char **argv)
 {
-	printf("INIT\n");
+	if (argc != 2)
+		ft_fail(ERR_ARGS);
+	ft_parser_init(argv[1]);
+	return (EXIT_SUCCESS);
 }
