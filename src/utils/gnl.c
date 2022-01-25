@@ -22,7 +22,7 @@ static int
 	char		*tmp;
 
 	j = 0;
-	tmp = ft_calloc(1 + 1, sizeof(*tmp));
+	tmp = ft_calloc(2, sizeof(*tmp));
 	if (!tmp)
 		return (-1);
 	while (i < 1)
@@ -56,7 +56,7 @@ static int
 		status = ft_gnl_engine(buf, line);
 		if (status > 0)
 		{
-			ft_memset(buf, '\0', 1 + 1);
+			ft_memset(buf, '\0', 2);
 			read_size = read(fd, buf, 1);
 		}
 		if (!status)
@@ -70,10 +70,10 @@ static int
 int
 	get_next_line(int fd, char **line)
 {
-	static char	buf[1 + 1];
+	static char	buf[2];
 	int			check;
 
-	if (fd < 0 || fd > 256 || 1 <= 0 || !line)
+	if (fd < 0 || fd > 256 || !line)
 		return (-1);
 	*line = ft_calloc(1, sizeof(*line));
 	if (!*line)

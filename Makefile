@@ -61,3 +61,5 @@ $(OBJECTS) : $(OBJDIR)/%.o : $(SRCDIR)/%.c | $(LIB_BIN_PATH)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "\033[34m"$<" compiled successfully\033[0m"
+
+# TODO INCLUDE DEPENDANCIES

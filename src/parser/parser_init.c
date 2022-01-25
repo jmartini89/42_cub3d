@@ -13,10 +13,19 @@ static void
 void
 	ft_parser_init(char *arg)
 {
-	int	fd;
+	int		fd;
+	int		ret;
+	char	**map;
 
 	ft_check_extension(arg);
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
+	ret = 1;
+	while (ret > 0)
+	{
+		map = ft_calloc(1, sizeof(*map));
+		ret = get_next_line(fd, map);
+		// WIP
+	}
 }
