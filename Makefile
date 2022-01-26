@@ -16,12 +16,13 @@ SOURCES = $(shell find $(SRCDIR) -name "*.c")
 OBJECTS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
 TARGET = $(BINDIR)/$(NAME)
 
-LIB = libft #mlx
-LIB_BIN = libft.a #libmlx.dylib
+LIB = libft mlx
+LIB_BIN = libft.a libmlx.dylib
 LIB_BIN_PATH = $(addprefix $(LIBDIR)/, $(LIB_BIN))
 LIBPATH = $(addprefix $(LIBDIR)/, $(LIB))
 
-INCLUDE = -Llib -lft #libmlx.dylib
+INCLUDE = -Llib -lft lib/libmlx.dylib
+HEADERS_UPD = $(shell find inc -name "*.h")
 
 
 all : $(TARGET)
@@ -57,9 +58,7 @@ $(TARGET) : $(OBJECTS)
 	@echo "\033[32m"$@" compiled successfully\033[0m"
 
 #Compile
-$(OBJECTS) : $(OBJDIR)/%.o : $(SRCDIR)/%.c | $(LIB_BIN_PATH)
+$(OBJECTS) : $(OBJDIR)/%.o : $(SRCDIR)/%.c $(HEADERS_UPD) | $(LIB_BIN_PATH)
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "\033[34m"$<" compiled successfully\033[0m"
-
-# TODO INCLUDE DEPENDANCIES
