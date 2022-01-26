@@ -1,4 +1,4 @@
-all : libft.a libmlx.dylib
+all : libft.a #libmlx.dylib
 
 libft.a :
 	@make -s -C ./libft

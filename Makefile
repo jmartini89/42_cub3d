@@ -16,12 +16,12 @@ SOURCES = $(shell find $(SRCDIR) -name "*.c")
 OBJECTS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SOURCES))
 TARGET = $(BINDIR)/$(NAME)
 
-LIB = libft mlx
-LIB_BIN = libft.a libmlx.dylib
+LIB = libft #mlx
+LIB_BIN = libft.a #libmlx.dylib
 LIB_BIN_PATH = $(addprefix $(LIBDIR)/, $(LIB_BIN))
 LIBPATH = $(addprefix $(LIBDIR)/, $(LIB))
 
-INCLUDE = -Llib -lft lib/libmlx.dylib
+INCLUDE = -Llib -lft #lib/libmlx.dylib
 HEADERS_UPD = $(shell find inc -name "*.h")
 
 

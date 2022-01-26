@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
 static void
-	ft_check_extension(char *arg)
+	ft_check_file_extension(char *arg)
 {
 	int	len;
 
@@ -14,18 +14,12 @@ void
 	ft_parser_init(char *arg)
 {
 	int		fd;
-	int		ret;
 	char	**map;
 
-	ft_check_extension(arg);
+	map = NULL;
+	ft_check_file_extension(arg);
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
-	ret = 1;
-	while (ret > 0)
-	{
-		map = ft_calloc(1, sizeof(*map));
-		ret = get_next_line(fd, map);
-		// WIP
-	}
+	ft_map_read(fd, &map);
 }
