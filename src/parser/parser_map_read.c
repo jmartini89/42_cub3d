@@ -26,7 +26,7 @@ static void
 }
 
 static void
-	ft_map_rectangulate(t_map *map)
+	ft_map_resize(t_map *map)
 {
 	char	**tmp;
 	int		i;
@@ -63,5 +63,5 @@ void
 		i++;
 	}
 	map->height = i;
-	ft_map_rectangulate(map);
+	ft_map_resize(map);
 }
