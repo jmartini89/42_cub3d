@@ -21,4 +21,14 @@
 # include <cube_utils.h>
 # include <cube_parser.h>
 
+enum e_world {
+	SPACE = 32,
+	FLOOR = 48,
+	WALL,
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+};
+
 #endif

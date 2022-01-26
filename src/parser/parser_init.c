@@ -10,16 +10,24 @@ static void
 		ft_fail(ERR_PARSE_EXT);
 }
 
+static void
+	ft_init_map(t_map *map)
+{
+	map->map = NULL;
+	map->width = 0;
+	map->height = 0;
+}
+
 void
-	ft_parser_init(char *arg)
+	ft_parser_init(t_map *map, char *arg)
 {
 	int		fd;
-	char	**map;
 
-	map = NULL;
+	ft_init_map(map);
 	ft_check_file_extension(arg);
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
-	ft_map_read(fd, &map);
+	ft_map_read(fd, map);
+	close(fd);
 }

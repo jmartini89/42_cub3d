@@ -3,7 +3,7 @@
 
 # define ERR_PARSE_EXT "Bad file extension"
 
-void	ft_parser_init(char *arg);
-void	ft_map_read(int fd, char ***map);
+void	ft_parser_init(t_map *map, char *arg);
+void	ft_map_read(int fd, t_map *map);
 
 #endif
