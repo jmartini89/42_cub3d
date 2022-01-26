@@ -34,8 +34,6 @@ static void
 	tmp = ft_calloc(map->height + 1, sizeof(*tmp));
 	if (!tmp)
 		ft_fail(ERR_SYS_MALLOC);
-
-	printf("%d\n", map->width);
 	i = -1;
 	while (++i < map->height)
 	{
