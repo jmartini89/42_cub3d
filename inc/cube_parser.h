@@ -1,7 +1,7 @@
 #ifndef CUBE_PARSER_H
 # define CUBE_PARSER_H
 
-# define VOID ' '
+# define SPACE ' '
 # define FLOOR '0'
 # define WALL '1'
 # define NORTH 'N'

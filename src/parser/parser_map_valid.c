@@ -15,14 +15,14 @@ static void
 	ft_check_valid_walkable(t_map *map, int x, int y)
 {
 	if ((x == 0 || x == map->width - 1 || y == 0 || y == map->height - 1)
-		|| (map->map[y][x + 1] && map->map[y][x + 1] == VOID)
-		|| (map->map[y][x - 1] && map->map[y][x - 1] == VOID)
-		|| (map->map[y + 1][x] && map->map[y + 1][x] == VOID)
-		|| (map->map[y - 1][x] && map->map[y - 1][x] == VOID)
-		|| (map->map[y + 1][x + 1] && map->map[y + 1][x + 1] == VOID)
-		|| (map->map[y + 1][x - 1] && map->map[y + 1][x - 1] == VOID)
-		|| (map->map[y - 1][x + 1] && map->map[y - 1][x + 1] == VOID)
-		|| (map->map[y - 1][x - 1] && map->map[y - 1][x - 1] == VOID))
+		|| (map->map[y][x + 1] && map->map[y][x + 1] == SPACE)
+		|| (map->map[y][x - 1] && map->map[y][x - 1] == SPACE)
+		|| (map->map[y + 1][x] && map->map[y + 1][x] == SPACE)
+		|| (map->map[y - 1][x] && map->map[y - 1][x] == SPACE)
+		|| (map->map[y + 1][x + 1] && map->map[y + 1][x + 1] == SPACE)
+		|| (map->map[y + 1][x - 1] && map->map[y + 1][x - 1] == SPACE)
+		|| (map->map[y - 1][x + 1] && map->map[y - 1][x + 1] == SPACE)
+		|| (map->map[y - 1][x - 1] && map->map[y - 1][x - 1] == SPACE))
 		ft_fail(ERR_PARSE_MAP);
 	return ;
 }
