@@ -9,7 +9,7 @@ static void
 	j = -1;
 	tmp = map->map;
 	while (tmp && i && ++j <= i)
-		tmp[j] = map->map[j];;
+		tmp[j] = map->map[j];
 	map->map = ft_calloc(i + 2, sizeof(*map->map));
 	if (!map->map)
 		ft_fail(ERR_SYS_MALLOC);
@@ -28,20 +28,19 @@ static void
 static void
 	ft_map_resize(t_map *map)
 {
-	char	**tmp;
+	char	*tmp;
 	int		i;
 
-	tmp = ft_calloc(map->height + 1, sizeof(*tmp));
-	if (!tmp)
-		ft_fail(ERR_SYS_MALLOC);
 	i = -1;
 	while (++i < map->height)
 	{
-		tmp[i] = ft_calloc(sizeof(**tmp), map->width + 1);
-		if (tmp[i] == NULL)
+		tmp = ft_calloc(sizeof(*tmp), map->width + 1);
+		if (tmp == NULL)
 			ft_fail(ERR_SYS_MALLOC);
-		ft_memset(tmp[i], SPACE, map->width);
-		ft_memcpy(tmp[i], map->map[i], ft_strlen(map->map[i]));
+		ft_memset(tmp, SPACE, map->width);
+		ft_memcpy(tmp, map->map[i], ft_strlen(map->map[i]));
+		free(map->map[i]);
+		map->map[i] = tmp;
 	}
 }
 
@@ -62,4 +61,9 @@ void
 	}
 	map->height = i;
 	ft_map_resize(map);
+	for (int j = 0; j < map->height; j++) {
+		printf("%s\n", map->map[j]);
+		free(map->map[j]);
+	}
+	free(map->map);
 }
