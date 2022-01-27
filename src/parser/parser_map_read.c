@@ -37,7 +37,7 @@ static void
 		tmp = ft_calloc(sizeof(*tmp), map->width + 1);
 		if (tmp == NULL)
 			ft_fail(ERR_SYS_MALLOC);
-		ft_memset(tmp, SPACE, map->width);
+		ft_memset(tmp, VOID, map->width);
 		ft_memcpy(tmp, map->map[i], ft_strlen(map->map[i]));
 		free(map->map[i]);
 		map->map[i] = tmp;
@@ -61,9 +61,4 @@ void
 	}
 	map->height = i;
 	ft_map_resize(map);
-	for (int j = 0; j < map->height; j++) {
-		printf("%s\n", map->map[j]);
-		free(map->map[j]);
-	}
-	free(map->map);
 }

@@ -16,7 +16,10 @@ static void
 	map->map = NULL;
 	map->width = 0;
 	map->height = 0;
+	map->player[Y] = 0;
+	map->player[X] = 0;
 }
+
 
 void
 	ft_parser_init(t_map *map, char *arg)
@@ -30,4 +33,11 @@ void
 		ft_fail(strerror(errno));
 	ft_map_read(fd, map);
 	close(fd);
+	ft_map_check(map);
+
+	for (int j = 0; j < map->height; j++) {
+		printf("%s\n", map->map[j]);
+		free(map->map[j]);
+	}
+	free(map->map);
 }

@@ -4,6 +4,9 @@
 # define FALSE 0
 # define TRUE 1
 
+# define Y 0
+# define X 1
+
 /* SYS LIBRARIES */
 # include <stdio.h>
 # include <stdlib.h>
@@ -20,15 +23,6 @@
 /* SUB_HEADERS */
 # include <cube_utils.h>
 # include <cube_parser.h>
-
-enum e_world {
-	SPACE = 32,
-	FLOOR = 48,
-	WALL,
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST,
-};
+# include <cube_errors.h>
 
 #endif
