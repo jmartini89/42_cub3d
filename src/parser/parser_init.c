@@ -20,7 +20,6 @@ static void
 	map->player[X] = 0;
 }
 
-
 void
 	ft_parser_init(t_map *map, char *arg)
 {
@@ -31,6 +30,7 @@ void
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
+	ft_types(fd, map);
 	ft_map_read(fd, map);
 	close(fd);
 	ft_map_check(map);

@@ -10,6 +10,7 @@
 # define WEST 'W'
 
 void	ft_parser_init(t_map *map, char *arg);
+void	ft_types(int fd, t_map *map);
 void	ft_map_read(int fd, t_map *map);
 void	ft_map_check(t_map *map);
 
