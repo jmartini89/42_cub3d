@@ -25,9 +25,10 @@ static int
 	i = 0;
 	while (split[i])
 		i++;
-	return i;
+	return (i);
 }
-void
+
+int
 	ft_is_valid_path(char *split)
 {
 	int i;
@@ -36,30 +37,39 @@ void
 	if (i == -1)
 		ft_fail(ERR_ARGS);
 	close(i);
-	return;
-	
+	return (TRUE);
+}
+
+int
+	ft_is_valid_rgb(char *split)
+{
+	(void)split;
+	return (TRUE);
 }
 
 void
-	ft_is_valid_rgb(char * split)
+	ft_parse_type(char** split, t_map *map)
 {
-	(void)split;
-}
-
-ft_parse_type(char** split, t_map *map)
-{
-	if (!ft_memcmp(split[0], "NO", strlen(split[0])))
+	if (!ft_memcmp(split[0], "NO", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.north)
 		map->types.north = split[1];
-	if (!ft_memcmp(split[0], "SO", strlen(split[0])))
+	else if (!ft_memcmp(split[0], "SO", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.south)
 		map->types.south = split[1];
-	if (!ft_memcmp(split[0], "WE", strlen(split[0])))
+	else if (!ft_memcmp(split[0], "WE", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.west)
 		map->types.west = split[1];
-	if (!ft_memcmp(split[0], "EA", strlen(split[0])))
+	else if (!ft_memcmp(split[0], "EA", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.east)
 		map->types.east = split[1];
-		//ciclo per F e C
-	if (!ft_memcmp(split[0], "F", strlen(split[0])))
-	;
-
+	else if (!ft_memcmp(split[0], "F", strlen(split[0]))
+		&& ft_is_valid_rgb(split[1]) && map->types.floor[0] == -1)
+		;//TODO
+	else if (!ft_memcmp(split[0], "C", strlen(split[0]))
+		&& ft_is_valid_rgb(split[1]) && map->types.ceiling[0] == -1)
+		;//TODO
+	else
+		ft_fail(ERR_GENERIC);
 }
 
 void
@@ -79,30 +89,18 @@ void
 		split = ft_split(line, SPACE);
 		if (!split)
 			ft_fail(ERR_SYS_MALLOC);
-		if (!(ft_split_cnt(split) % 2)
-			|| (!ft_strlen(split[0])))
+		if (!(ft_split_cnt(split) % 2) || !ft_strlen(split[0]))
 		{
 			if(ft_split_cnt(split))
 			{
 				test++;
-				if (!ft_memcmp(split[0], "NO", strlen(split[0]))
-					|| !ft_memcmp(split[0], "SO", strlen(split[0]))
-					|| !ft_memcmp(split[0], "WE", strlen(split[0]))
-					|| !ft_memcmp(split[0], "EA", strlen(split[0])))
-					ft_is_valid_path(split[1]);
-				else if (!ft_memcmp(split[0], "F", strlen(split[0]))
-					|| !ft_memcmp(split[0], "C", strlen(split[0])))
-					ft_is_valid_rgb(split[1]);
-				else
-					ft_fail(ERR_ARGS);
 				ft_parse_type(split, map);
-			//		IF (TYPES == END) RETURN
-			if (test == 4)
-				return;
-
+				// IF (TYPES == END) RETURN
+				if (test == 4)
+					return ;
 			}
 		}
 	}
-		ft_fail(ERR_GENERIC);
+	ft_fail(ERR_GENERIC);
 	//	FAIL
 }
