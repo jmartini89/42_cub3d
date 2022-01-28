@@ -25,7 +25,51 @@ static int
 	i = 0;
 	while (split[i])
 		i++;
-	return i;
+	return (i);
+}
+
+int
+	ft_is_valid_path(char *split)
+{
+	int	fd;
+
+	fd = open(split, O_RDONLY);
+	if (fd == -1)
+		ft_fail(strerror(errno));
+	close(fd);
+	return (TRUE);
+}
+
+int
+	ft_is_valid_rgb(char *split)
+{
+	(void)split;
+	return (TRUE);
+}
+
+void
+	ft_parse_type(char** split, t_map *map)
+{
+	if (!ft_memcmp(split[0], "NO", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.north)
+		map->types.north = split[1];
+	else if (!ft_memcmp(split[0], "SO", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.south)
+		map->types.south = split[1];
+	else if (!ft_memcmp(split[0], "WE", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.west)
+		map->types.west = split[1];
+	else if (!ft_memcmp(split[0], "EA", strlen(split[0]))
+		&& ft_is_valid_path(split[1]) && !map->types.east)
+		map->types.east = split[1];
+	else if (!ft_memcmp(split[0], "F", strlen(split[0]))
+		&& ft_is_valid_rgb(split[1]) && map->types.floor[0] == -1)
+		;//TODO
+	else if (!ft_memcmp(split[0], "C", strlen(split[0]))
+		&& ft_is_valid_rgb(split[1]) && map->types.ceiling[0] == -1)
+		;//TODO
+	else
+		ft_fail(ERR_GENERIC);
 }
 
 void
@@ -34,9 +78,9 @@ void
 	int		ret;
 	char	*line;
 	char	**split;
+	int		test;
 
-	int test = 0;
-
+	test = 0;
 	ft_types_init(map);
 	ret = 1;
 	while (ret > 0)
@@ -44,19 +88,19 @@ void
 		ret = get_next_line(fd, &line);
 		split = ft_split(line, SPACE);
 		if (!split)
-			ft_fail(ERR_SYS_MALLOC);
-		if (!(ft_split_cnt(split) % 2)
-			|| (ft_split_cnt(split) == 1 && !ft_strlen(split[0])))
+			ft_fail(strerror(errno));
+		if (!(ft_split_cnt(split) % 2) || !ft_strlen(split[0]))
 		{
-			test++;
-			if (split[0]) printf("%s\n", split[0]);
-			else printf("CIAO\n");
-			if (test == 3) return;
-		//		IF (LINE != VALID) FAIL
-		//		PARSE
-		//		IF (TYPES == END) RETURN
+			if (ft_split_cnt(split))
+			{
+				test++;
+				ft_parse_type(split, map);
+				// IF (TYPES == END) RETURN
+				if (test == 6)
+					return ;
+			}
 		}
-		ft_fail(ERR_GENERIC);
 	}
+	ft_fail(ERR_GENERIC);
 	//	FAIL
 }

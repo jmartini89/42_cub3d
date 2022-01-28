@@ -40,6 +40,17 @@ static int
 	return (FALSE);
 }
 
+static void
+	ft_valid_char(char c)
+{
+	if (c != SPACE && c != FLOOR && c != WALL
+		&& c != NORTH && c != SOUTH && c != EAST && c != WEST)
+		ft_fail(ERR_GENERIC);
+	return ;
+}
+
+
+/* CHECK IF VALID CHAR */
 void
 	ft_map_check(t_map *map)
 {
@@ -52,6 +63,7 @@ void
 		x = -1;
 		while (map->map[y][++x])
 		{
+			ft_valid_char(map->map[y][x]);
 			if (ft_is_walkable(map, x, y))
 			{
 				ft_check_valid_walkable(map, x, y);
