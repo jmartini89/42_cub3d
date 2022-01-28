@@ -58,6 +58,7 @@ ft_parse_type(char** split, t_map *map)
 		map->types.east = split[1];
 		//ciclo per F e C
 	if (!ft_memcmp(split[0], "F", strlen(split[0])))
+	;
 
 }
 
