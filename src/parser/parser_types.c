@@ -31,12 +31,12 @@ static int
 int
 	ft_is_valid_path(char *split)
 {
-	int i;
+	int	fd;
 
-	i = open(split, O_RDONLY);
-	if (i == -1)
-		ft_fail(ERR_ARGS);
-	close(i);
+	fd = open(split, O_RDONLY);
+	if (fd == -1)
+		ft_fail(strerror(errno));
+	close(fd);
 	return (TRUE);
 }
 
@@ -88,15 +88,15 @@ void
 		ret = get_next_line(fd, &line);
 		split = ft_split(line, SPACE);
 		if (!split)
-			ft_fail(ERR_SYS_MALLOC);
+			ft_fail(strerror(errno));
 		if (!(ft_split_cnt(split) % 2) || !ft_strlen(split[0]))
 		{
-			if(ft_split_cnt(split))
+			if (ft_split_cnt(split))
 			{
 				test++;
 				ft_parse_type(split, map);
 				// IF (TYPES == END) RETURN
-				if (test == 4)
+				if (test == 6)
 					return ;
 			}
 		}
