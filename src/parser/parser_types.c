@@ -46,6 +46,20 @@ void
 	(void)split;
 }
 
+ft_parse_type(char** split, t_map *map)
+{
+	if (!ft_memcmp(split[0], "NO", strlen(split[0])))
+		map->types.north = split[1];
+	if (!ft_memcmp(split[0], "SO", strlen(split[0])))
+		map->types.south = split[1];
+	if (!ft_memcmp(split[0], "WE", strlen(split[0])))
+		map->types.west = split[1];
+	if (!ft_memcmp(split[0], "EA", strlen(split[0])))
+		map->types.east = split[1];
+		//ciclo per F e C
+	if (!ft_memcmp(split[0], "F", strlen(split[0])))
+
+}
 
 void
 	ft_types(int fd, t_map *map)
@@ -80,7 +94,7 @@ void
 					ft_is_valid_rgb(split[1]);
 				else
 					ft_fail(ERR_ARGS);
-			//		PARSE
+				ft_parse_type(split, map);
 			//		IF (TYPES == END) RETURN
 			if (test == 4)
 				return;
