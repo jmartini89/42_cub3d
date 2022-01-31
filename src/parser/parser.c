@@ -21,7 +21,7 @@ static void
 }
 
 void
-	ft_parser_init(t_map *map, char *arg)
+	ft_parser(t_map *map, char *arg)
 {
 	int		fd;
 
@@ -34,10 +34,4 @@ void
 	ft_map_read(fd, map);
 	close(fd);
 	ft_map_check(map);
-
-	for (int j = 0; j < map->height; j++) {
-		printf("%s\n", map->map[j]);
-		free(map->map[j]);
-	}
-	free(map->map);
 }

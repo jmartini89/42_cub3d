@@ -21,8 +21,8 @@
 # include "libft.h"
 
 /* SUB_HEADERS */
-# include <cube_utils.h>
 # include <cube_parser.h>
+# include <cube_utils.h>
 # include <cube_errors.h>
 
 #endif

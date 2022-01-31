@@ -49,8 +49,6 @@ static void
 	return ;
 }
 
-
-/* CHECK IF VALID CHAR */
 void
 	ft_map_check(t_map *map)
 {

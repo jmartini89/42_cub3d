@@ -10,7 +10,7 @@ static void
 	map->types.south = NULL;
 	map->types.east = NULL;
 	map->types.west = NULL;
-	while (++i < 4)
+	while (++i < 3)
 	{
 		map->types.floor[i] = -1;
 		map->types.ceiling[i] = -1;
@@ -28,48 +28,87 @@ static int
 	return (i);
 }
 
-int
-	ft_is_valid_path(char *split)
+static int
+	ft_is_valid_path(char *path)
 {
 	int	fd;
 
-	fd = open(split, O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
 	close(fd);
 	return (TRUE);
 }
 
-int
-	ft_is_valid_rgb(char *split)
+static void
+	ft_rgb(char **split, int *type, int j)
 {
-	(void)split;
+	int	i;
+
+	i = -1;
+	while (++i < 3)
+		type[i] = 0;
+	free(split[j]);
+}
+
+static int
+	ft_types_end(t_map *map)
+{
+	int	i;
+
+	if (!map->types.north || !map->types.south
+		|| !map->types.east || !map->types.west)
+		return (FALSE);
+	i = -1;
+	while (++i < 3)
+		if (map->types.floor[i] == -1 || map->types.ceiling[i] == -1)
+			return (FALSE);
 	return (TRUE);
 }
 
-void
-	ft_parse_type(char** split, t_map *map)
+static void
+	ft_parse_type(char **split, t_map *map, int i)
 {
-	if (!ft_memcmp(split[0], "NO", strlen(split[0]))
-		&& ft_is_valid_path(split[1]) && !map->types.north)
-		map->types.north = split[1];
-	else if (!ft_memcmp(split[0], "SO", strlen(split[0]))
-		&& ft_is_valid_path(split[1]) && !map->types.south)
-		map->types.south = split[1];
-	else if (!ft_memcmp(split[0], "WE", strlen(split[0]))
-		&& ft_is_valid_path(split[1]) && !map->types.west)
-		map->types.west = split[1];
-	else if (!ft_memcmp(split[0], "EA", strlen(split[0]))
-		&& ft_is_valid_path(split[1]) && !map->types.east)
-		map->types.east = split[1];
-	else if (!ft_memcmp(split[0], "F", strlen(split[0]))
-		&& ft_is_valid_rgb(split[1]) && map->types.floor[0] == -1)
-		;//TODO
-	else if (!ft_memcmp(split[0], "C", strlen(split[0]))
-		&& ft_is_valid_rgb(split[1]) && map->types.ceiling[0] == -1)
-		;//TODO
+	if (!ft_memcmp(split[i], "NO", strlen(split[i]))
+		&& ft_is_valid_path(split[i + 1]) && !map->types.north)
+		map->types.north = split[i + 1];
+	else if (!ft_memcmp(split[i], "SO", strlen(split[i]))
+		&& ft_is_valid_path(split[i + 1]) && !map->types.south)
+		map->types.south = split[i + 1];
+	else if (!ft_memcmp(split[i], "WE", strlen(split[i]))
+		&& ft_is_valid_path(split[i + 1]) && !map->types.west)
+		map->types.west = split[i + 1];
+	else if (!ft_memcmp(split[i], "EA", strlen(split[i]))
+		&& ft_is_valid_path(split[i + 1]) && !map->types.east)
+		map->types.east = split[i + 1];
+	else if (!ft_memcmp(split[i], "F", strlen(split[i]))
+		&& map->types.floor[0] == -1)
+		ft_rgb(split, map->types.floor, i + 1);
+	else if (!ft_memcmp(split[i], "C", strlen(split[i]))
+		&& map->types.ceiling[0] == -1)
+		ft_rgb(split, map->types.ceiling, i + 1);
 	else
-		ft_fail(ERR_GENERIC);
+		ft_fail("WUT");
+	free(split[i]);
+}
+
+static void
+	ft_whatever(t_map *map, char **split)
+{
+	int	i;
+
+	if (!ft_split_cnt(split))
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		ft_parse_type(split, map, i);
+		if (split[i + 1] && split[i + 2])
+			i = +2;
+		else
+			break ;
+	}
+	free(split);
 }
 
 void
@@ -78,9 +117,7 @@ void
 	int		ret;
 	char	*line;
 	char	**split;
-	int		test;
 
-	test = 0;
 	ft_types_init(map);
 	ret = 1;
 	while (ret > 0)
@@ -89,18 +126,15 @@ void
 		split = ft_split(line, SPACE);
 		if (!split)
 			ft_fail(strerror(errno));
+		free(line);
 		if (!(ft_split_cnt(split) % 2) || !ft_strlen(split[0]))
 		{
-			if (ft_split_cnt(split))
-			{
-				test++;
-				ft_parse_type(split, map);
-				// IF (TYPES == END) RETURN
-				if (test == 6)
-					return ;
-			}
+			ft_whatever(map, split);
+			if (ft_types_end(map))
+				return ;
 		}
+		else
+			ft_fail("TEST");
 	}
 	ft_fail(ERR_GENERIC);
-	//	FAIL
 }

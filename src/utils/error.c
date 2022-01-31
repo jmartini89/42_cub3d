@@ -3,6 +3,6 @@
 void
 	ft_fail(char *str)
 {
-	printf("Error: %s\n", str);
+	printf("Error:\n%s\n", str);
 	exit(EXIT_FAILURE);
 }

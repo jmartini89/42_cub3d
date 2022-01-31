@@ -7,6 +7,7 @@ int
 
 	if (argc != 2)
 		ft_fail(ERR_ARGS);
-	ft_parser_init(&map, argv[1]);
-	return (EXIT_SUCCESS);
+	ft_parser(&map, argv[1]);
+	ft_garbage_collector(&map);
+	exit(EXIT_SUCCESS);
 }
