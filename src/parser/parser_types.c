@@ -88,8 +88,7 @@ static void
 		&& map->types.ceiling[0] == -1)
 		ft_rgb(split, map->types.ceiling, i + 1);
 	else
-		ft_fail("WUT");
-	free(split[i]);
+		ft_fail(ERR_PARSE_TYPE);
 }
 
 static void
@@ -103,6 +102,7 @@ static void
 	while (split[i])
 	{
 		ft_parse_type(split, map, i);
+		free(split[i]);
 		if (split[i + 1] && split[i + 2])
 			i = +2;
 		else
@@ -127,14 +127,11 @@ void
 		if (!split)
 			ft_fail(strerror(errno));
 		free(line);
-		if (!(ft_split_cnt(split) % 2) || !ft_strlen(split[0]))
-		{
-			ft_whatever(map, split);
-			if (ft_types_end(map))
-				return ;
-		}
-		else
-			ft_fail("TEST");
+		if (ft_split_cnt(split) % 2)
+			ft_fail(ERR_PARSE_TYPE_ARGS_LINE);
+		ft_whatever(map, split);
+		if (ft_types_end(map))
+			return ;
 	}
-	ft_fail(ERR_GENERIC);
+	ft_fail(ERR_PARSE_TYPE_ARGS); // DOES THIS EVEN OCCUR?!
 }
