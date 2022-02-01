@@ -14,9 +14,10 @@ static void
 void
 	ft_garbage_collector(t_map *map)
 {
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		free(map->types.textures[i]);
 	ft_clean_matrix(map->map);
-	free(map->types.north);
-	free(map->types.south);
-	free(map->types.east);
-	free(map->types.west);
 }

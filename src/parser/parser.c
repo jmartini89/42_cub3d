@@ -11,13 +11,24 @@ static void
 }
 
 static void
-	ft_init_map(t_map *map)
+	ft_init_args(t_map *map)
 {
+	int	i;
+
 	map->map = NULL;
 	map->width = 0;
 	map->height = 0;
 	map->player[Y] = 0;
 	map->player[X] = 0;
+	i = -1;
+	while (++i < 4)
+		map->types.textures[i] = NULL;
+	i = -1;
+	while (++i < 3)
+	{
+		map->types.floor[i] = -1;
+		map->types.ceiling[i] = -1;
+	}
 }
 
 void
@@ -25,13 +36,20 @@ void
 {
 	int		fd;
 
-	ft_init_map(map);
 	ft_check_file_extension(arg);
+	ft_init_args(map);
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
-	ft_types(fd, map);
+	ft_types_read(fd, map);
 	ft_map_read(fd, map);
 	close(fd);
 	ft_map_check(map);
+
+	int i = -1;
+	while (++i < 3)
+		printf("%d %d\n", map->types.ceiling[i], map->types.floor[i]);
+	i = -1;
+	while (++i < 4)
+		printf("%s\n", map->types.textures[i]);
 }
