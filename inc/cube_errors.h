@@ -12,4 +12,6 @@
 # define ERR_PARSE_TYPE_ARGS_LINE "Parsing: Wrong number of type arguments in line"
 # define ERR_PARSE_TYPE_ARGS "Parsing: Wrong number of type arguments"
 
+void	ft_fail(char *str);
+
 #endif

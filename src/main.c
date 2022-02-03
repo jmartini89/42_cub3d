@@ -1,4 +1,7 @@
 #include "cub3d.h"
+#include "cube_parser.h"
+#include "cube_errors.h"
+#include "cube_utils.h"
 
 int
 	main(int argc, char **argv)

@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "cube_parser.h"
 
 static void
 	ft_clean_matrix(char **str)

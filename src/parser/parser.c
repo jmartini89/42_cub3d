@@ -1,4 +1,6 @@
 #include "cub3d.h"
+#include "cube_parser.h"
+#include "cube_errors.h"
 
 static void
 	ft_check_file_extension(char *arg)

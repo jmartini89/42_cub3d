@@ -1,4 +1,6 @@
 #include "cub3d.h"
+#include "cube_parser.h"
+#include "cube_errors.h"
 
 int
 	ft_split_cnt(char **split)

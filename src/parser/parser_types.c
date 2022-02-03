@@ -1,4 +1,7 @@
-#include "cub3d.h"
+#include <cub3d.h>
+#include <cube_errors.h>
+#include <cube_parser.h>
+#include <cube_utils.h>
 
 static void
 	ft_assign_rgb(char **args, int *type, int index)
