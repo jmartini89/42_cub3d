@@ -50,7 +50,12 @@ void
 
 	int i = -1;
 	while (++i < 3)
-		printf("%d %d\n", map->types.ceiling[i], map->types.floor[i]);
+		printf("%d ", map->types.floor[i]);
+	printf("\n");
+	i = -1;
+	while (++i < 3)
+		printf("%d ", map->types.ceiling[i]);
+	printf("\n");
 	i = -1;
 	while (++i < 4)
 		printf("%s\n", map->types.textures[i]);

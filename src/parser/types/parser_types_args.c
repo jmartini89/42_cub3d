@@ -4,41 +4,37 @@
 #include <cube_utils.h>
 
 static void
-	ft_assign_rgb(char **args, int *type, int index)
+	ft_assign_rgb(int *type, char *arg)
 {
-	int	i;
+	int		i;
+	char	**rgb;
 
 	if (type[0] != -1)
-		ft_fail("TEMP");
+		ft_fail(ERR_PARSE_TYPE_MULTI);
+	rgb = ft_split(arg, ',');
+	if (rgb == NULL)
+		ft_fail(strerror(errno));
+	if (ft_split_cnt(rgb) != 3)
+		ft_fail(ERR_PARSE_TYPE_RGB_STR);
 	i = -1;
 	while (++i < 3)
-		type[i] = 0;
-	free(args[index]);
+	{
+		type[i] = ft_atoi(rgb[i]);
+		free(rgb[i]);
+		if (type[i] < 0 || type[i] > 255)
+			ft_fail(ERR_PARSE_TYPE_RGB_VAL);
+	}
+	free(rgb);
+	free(arg);
 }
 
 static void
 	ft_assign_texture(t_map *map, int tex_ind, char *path)
 {
 	if (map->types.textures[tex_ind])
-		ft_fail("TEST");
+		ft_fail(ERR_PARSE_TYPE_MULTI);
 	ft_is_valid_path(path);
 	map->types.textures[tex_ind] = path;
-}
-
-static int
-	ft_check_types_parsed(t_map *map)
-{
-	int	i;
-
-	i = -1;
-	while (++i < 4)
-		if (!map->types.textures[i])
-			return (FALSE);
-	i = -1;
-	while (++i < 3)
-		if (map->types.floor[i] == -1 || map->types.ceiling[i] == -1)
-			return (FALSE);
-	return (TRUE);
 }
 
 static int
@@ -70,51 +66,27 @@ static void
 	if (texture < F_TEX)
 		ft_assign_texture(map, texture, args[index + 1]);
 	if (texture == F_TEX)
-		ft_assign_rgb(args, map->types.floor, index + 1);
+		ft_assign_rgb(map->types.floor, args[index + 1]);
 	if (texture == C_TEX)
-		ft_assign_rgb(args, map->types.ceiling, index + 1);
+		ft_assign_rgb(map->types.ceiling, args[index + 1]);
 }
 
-static void
-	ft_read_args(t_map *map, char **args)
+void
+	ft_types_args(t_map *map, char **args)
 {
 	int	i;
 
-	if (!ft_split_cnt(args))
-		return ;
 	i = 0;
 	while (args[i])
 	{
+		if (!ft_split_cnt(args))
+			break ;
 		ft_parse_type(args, map, i);
 		free(args[i]);
 		if (args[i + 1] && args[i + 2])
-			i = +2;
+			i += 2;
 		else
 			break ;
 	}
 	free(args);
-}
-
-void
-	ft_types_read(int fd, t_map *map)
-{
-	int		ret;
-	char	*line;
-	char	**split;
-
-	ret = 1;
-	while (ret > 0)
-	{
-		ret = get_next_line(fd, &line);
-		split = ft_split(line, SPACE);
-		if (split == NULL)
-			ft_fail(strerror(errno));
-		free(line);
-		if (ft_split_cnt(split) % 2)
-			ft_fail(ERR_PARSE_TYPE_ARGS_LINE);
-		ft_read_args(map, split);
-		if (ft_check_types_parsed(map))
-			return ;
-	}
-	ft_fail(ERR_PARSE_TYPE_ARGS); // DOES THIS EVEN OCCUR?!
 }

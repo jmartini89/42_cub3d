@@ -41,9 +41,13 @@ typedef struct s_map
 }	t_map;
 
 void	ft_parser(t_map *map, char *arg);
+
 void	ft_types_read(int fd, t_map *map);
+void	ft_types_args(t_map *map, char **args);
+
 void	ft_map_read(int fd, t_map *map);
 void	ft_map_check(t_map *map);
+
 int		ft_split_cnt(char **split);
 void	ft_is_valid_path(char *path);
 
