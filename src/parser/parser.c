@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "cube_core.h"
 #include "cube_parser.h"
 #include "cube_errors.h"
 
@@ -13,50 +14,50 @@ static void
 }
 
 static void
-	ft_init_args(t_map *map)
+	ft_init_args(t_core *core)
 {
 	int	i;
 
-	map->map = NULL;
-	map->width = 0;
-	map->height = 0;
-	map->player[Y] = 0;
-	map->player[X] = 0;
+	core->map.map = NULL;
+	core->map.width = 0;
+	core->map.height = 0;
+	core->map.player[Y] = 0;
+	core->map.player[X] = 0;
 	i = -1;
 	while (++i < 4)
-		map->types.textures[i] = NULL;
+		core->types.textures[i] = NULL;
 	i = -1;
 	while (++i < 3)
 	{
-		map->types.floor[i] = -1;
-		map->types.ceiling[i] = -1;
+		core->types.floor[i] = -1;
+		core->types.ceiling[i] = -1;
 	}
 }
 
 void
-	ft_parser(t_map *map, char *arg)
+	ft_parser(t_core *core, char *arg)
 {
 	int		fd;
 
 	ft_check_file_extension(arg);
-	ft_init_args(map);
+	ft_init_args(core);
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
 		ft_fail(strerror(errno));
-	ft_types_read(fd, map);
-	ft_map_read(fd, map);
+	ft_types_read(fd, &core->types);
+	ft_map_read(fd, &core->map);
 	close(fd);
-	ft_map_check(map);
+	ft_map_check(&core->map);
 
 	int i = -1;
 	while (++i < 3)
-		printf("%d ", map->types.floor[i]);
+		printf("%d ", core->types.floor[i]);
 	printf("\n");
 	i = -1;
 	while (++i < 3)
-		printf("%d ", map->types.ceiling[i]);
+		printf("%d ", core->types.ceiling[i]);
 	printf("\n");
 	i = -1;
 	while (++i < 4)
-		printf("%s\n", map->types.textures[i]);
+		printf("%s\n", core->types.textures[i]);
 }

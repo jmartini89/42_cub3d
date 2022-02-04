@@ -4,23 +4,23 @@
 #include <cube_utils.h>
 
 static int
-	ft_end_check(t_map *map)
+	ft_end_check(t_types *types)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
-		if (!map->types.textures[i])
+		if (!types->textures[i])
 			return (FALSE);
 	i = -1;
 	while (++i < 3)
-		if (map->types.floor[i] == -1 || map->types.ceiling[i] == -1)
+		if (types->floor[i] == -1 || types->ceiling[i] == -1)
 			return (FALSE);
 	return (TRUE);
 }
 
 void
-	ft_types_read(int fd, t_map *map)
+	ft_types_read(int fd, t_types *types)
 {
 	int		ret;
 	char	*line;
@@ -36,8 +36,8 @@ void
 		free(line);
 		if (ft_split_cnt(split) % 2)
 			ft_fail(ERR_PARSE_TYPE_ARGS_LINE);
-		ft_types_args(map, split);
-		if (ft_end_check(map))
+		ft_types_args(types, split);
+		if (ft_end_check(types))
 			return ;
 	}
 	ft_fail(ERR_PARSE_TYPE_ARGS);

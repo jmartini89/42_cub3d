@@ -17,7 +17,7 @@
 # include <errno.h>
 
 /* LOCAL LIBRARIES*/
-// # include "mlx.h"
+# include "mlx.h"
 # include "libft.h"
 
 #endif

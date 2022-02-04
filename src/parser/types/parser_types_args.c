@@ -29,12 +29,12 @@ static void
 }
 
 static void
-	ft_assign_texture(t_map *map, int tex_ind, char *path)
+	ft_assign_texture(t_types *types, int tex_ind, char *path)
 {
-	if (map->types.textures[tex_ind])
+	if (types->textures[tex_ind])
 		ft_fail(ERR_PARSE_TYPE_MULTI);
 	ft_is_valid_path(path);
-	map->types.textures[tex_ind] = path;
+	types->textures[tex_ind] = path;
 }
 
 static int
@@ -56,7 +56,7 @@ static int
 }
 
 static void
-	ft_parse_type(char **args, t_map *map, int index)
+	ft_parse_type(char **args, t_types *types, int index)
 {
 	int	texture;
 
@@ -64,15 +64,15 @@ static void
 	if (texture < 0)
 		ft_fail(ERR_PARSE_TYPE);
 	if (texture < F_TEX)
-		ft_assign_texture(map, texture, args[index + 1]);
+		ft_assign_texture(types, texture, args[index + 1]);
 	if (texture == F_TEX)
-		ft_assign_rgb(map->types.floor, args[index + 1]);
+		ft_assign_rgb(types->floor, args[index + 1]);
 	if (texture == C_TEX)
-		ft_assign_rgb(map->types.ceiling, args[index + 1]);
+		ft_assign_rgb(types->ceiling, args[index + 1]);
 }
 
 void
-	ft_types_args(t_map *map, char **args)
+	ft_types_args(t_types *types, char **args)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ void
 	{
 		if (!ft_split_cnt(args))
 			break ;
-		ft_parse_type(args, map, i);
+		ft_parse_type(args, types, i);
 		free(args[i]);
 		if (args[i + 1] && args[i + 2])
 			i += 2;

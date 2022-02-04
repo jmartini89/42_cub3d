@@ -1,5 +1,5 @@
 #include "cub3d.h"
-#include "cube_parser.h"
+#include "cube_core.h"
 
 static void
 	ft_clean_matrix(char **str)
@@ -13,12 +13,12 @@ static void
 }
 
 void
-	ft_garbage_collector(t_map *map)
+	ft_garbage_collector(t_core *core)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
-		free(map->types.textures[i]);
-	ft_clean_matrix(map->map);
+		free(core->types.textures[i]);
+	ft_clean_matrix(core->map.map);
 }

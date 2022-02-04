@@ -1,6 +1,8 @@
 #ifndef CUBE_PARSER_H
 # define CUBE_PARSER_H
 
+# include "cube_core.h"
+
 /*
 * MAP CHARS
 */
@@ -24,26 +26,10 @@ enum e_textures {
 	C_TEX
 };
 
-typedef struct s_types
-{
-	char	*textures[4];
-	int		floor[3];
-	int		ceiling[3];
-}	t_types;
+void	ft_parser(t_core *core, char *arg);
 
-typedef struct s_map
-{
-	int		width;
-	int		height;
-	char	**map;
-	int		player[2];
-	t_types	types;
-}	t_map;
-
-void	ft_parser(t_map *map, char *arg);
-
-void	ft_types_read(int fd, t_map *map);
-void	ft_types_args(t_map *map, char **args);
+void	ft_types_read(int fd, t_types *types);
+void	ft_types_args(t_types *types, char **args);
 
 void	ft_map_read(int fd, t_map *map);
 void	ft_map_check(t_map *map);
