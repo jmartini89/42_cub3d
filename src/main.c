@@ -21,22 +21,22 @@ static void
 {
 	unsigned int	*dst;
 	int				i;
-	int				first;
-	int				second;
+	int				above;
+	int				below;
 	int				pixel;
 
 	dst = (unsigned int *)frame->addr;
-	first = (frame->size_line * frame->h) / 2;
-	second = frame->size_line * frame->h;
+	above = (frame->size_line * frame->h) / 2;
+	below = frame->size_line * frame->h;
 	pixel = frame->pixel;
 	i = 0;
-	while (i < first)
+	while (i < above)
 	{
 		*dst = 0x31ccbf;
 		dst++;
 		i += pixel;
 	}
-	while (i < second)
+	while (i < below)
 	{
 		*dst = 0x32a852;
 		dst++;
