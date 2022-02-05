@@ -1,6 +1,7 @@
 NAME = cub3d
 CC = gcc
-CFLAGS = $(CWARN) $(HEADERS)
+CFLAGS = $(OPT) $(CWARN) $(HEADERS)
+OPT = -O3
 CWARN = -Wall -Werror -Wextra
 HEADERS = -I./inc $(addprefix -I./, $(LIBPATH))
 DEBUG = -g

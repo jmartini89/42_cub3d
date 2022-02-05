@@ -11,41 +11,43 @@ static void
 
 	if (x >= 0 && x < img->w && y >= 0 && y < img->h && color < 0xff000000)
 	{
-		dst = img->addr + ((y * img->size_line) + (x * (img->bpp / 8)));
+		dst = img->addr + ((y * img->size_line) + (x * img->pixel));
 		*(unsigned int *)dst = color;
 	}
 }
 
 static void
-	ft_background(t_core *core)
+	ft_background(t_img *frame)
 {
 	unsigned int	*dst;
 	int				i;
 	int				first;
 	int				second;
+	int				pixel;
 
-	dst = (unsigned int *)core->frame.addr;
-	first = (core->frame.size_line * core->frame.h) / 2;
-	second = core->frame.size_line * core->frame.h;
+	dst = (unsigned int *)frame->addr;
+	first = (frame->size_line * frame->h) / 2;
+	second = frame->size_line * frame->h;
+	pixel = frame->pixel;
 	i = 0;
 	while (i < first)
 	{
 		*dst = 0x31ccbf;
 		dst++;
-		i += 4;
+		i += pixel;
 	}
 	while (i < second)
 	{
 		*dst = 0x32a852;
 		dst++;
-		i += 4;
+		i += pixel;
 	}
 }
 
 static void
 	ft_raster(t_core *core)
 {
-	ft_background(core);
+	ft_background(&core->frame);
 	ft_pixel_put(&core->frame, 200, 200, 0xff1100);
 	ft_pixel_put(&core->frame, 300, 300, 0xff1100);
 }
@@ -55,11 +57,11 @@ static int
 	ft_engine(t_core *core)
 {
 	clock_t	begin = clock();
-	mlx_sync(1, core->frame.img);
+	// mlx_sync(1, core->frame.img);
 	ft_raster(core);
-	mlx_put_image_to_window(
-		core->mlx, core->win, core->frame.img, 0, 0);
-	mlx_sync(3, core->win);
+	// mlx_put_image_to_window(
+	// 	core->mlx, core->win, core->frame.img, 0, 0);
+	// mlx_sync(3, core->win);
 	clock_t	end = clock();
 	clock_t	delta = end - begin;
 	printf("%f\n", delta / 1000.0);
@@ -111,8 +113,11 @@ static void
 	core->frame.addr = mlx_get_data_addr(
 			core->frame.img, &core->frame.bpp,
 			&core->frame.size_line, &core->frame.endian);
+	core->frame.pixel = core->frame.bpp / 8;
+
 	core->win = mlx_new_window(
 			core->mlx, core->frame.w, core->frame.h, "test");
+
 	core->exit = 0;
 }
 
