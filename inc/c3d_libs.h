@@ -1,13 +1,9 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef C3D_LIBS_H
+# define C3D_LIBS_H
 
-# define FALSE 0
-# define TRUE 1
-
-# define Y 0
-# define X 1
-
-/* SYS LIBRARIES */
+/*
+* SYSTEM
+*/
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
@@ -16,7 +12,9 @@
 # include <string.h>
 # include <errno.h>
 
-/* LOCAL LIBRARIES*/
+/*
+* LOCAL
+*/
 # include "mlx.h"
 # include "libft.h"
 

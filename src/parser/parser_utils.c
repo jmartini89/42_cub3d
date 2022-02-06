@@ -1,6 +1,6 @@
-#include "cub3d.h"
-#include "cube_parser.h"
-#include "cube_errors.h"
+#include "c3d_libs.h"
+#include "c3d_parser.h"
+#include "c3d_utils.h"
 
 int
 	ft_split_cnt(char **split)

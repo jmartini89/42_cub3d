@@ -1,7 +1,7 @@
-#ifndef CUBE_PARSER_H
-# define CUBE_PARSER_H
+#ifndef C3D_PARSER_H
+# define C3D_PARSER_H
 
-# include "cube_core.h"
+# include "c3d_core.h"
 
 /*
 * MAP CHARS

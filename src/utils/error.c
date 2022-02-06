@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "c3d_libs.h"
 
 void
 	ft_fail(char *str)

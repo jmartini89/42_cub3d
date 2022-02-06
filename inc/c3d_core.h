@@ -1,5 +1,11 @@
-#ifndef CUBE_CORE_H
-# define CUBE_CORE_H
+#ifndef C3D_CORE_H
+# define C3D_CORE_H
+
+# define FALSE 0
+# define TRUE 1
+
+# define Y 0
+# define X 1
 
 # define KEY_W 0xd
 # define KEY_A 0x0

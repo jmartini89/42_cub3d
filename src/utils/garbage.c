@@ -1,5 +1,5 @@
-#include "cub3d.h"
-#include "cube_core.h"
+#include "c3d_libs.h"
+#include "c3d_core.h"
 
 static void
 	ft_clean_matrix(char **str)

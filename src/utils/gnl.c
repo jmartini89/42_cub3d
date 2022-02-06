@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "c3d_libs.h"
 
 static int
 	ft_gnl_chain(char *tmp, char **line)

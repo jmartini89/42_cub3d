@@ -1,6 +1,6 @@
-#include <cub3d.h>
-#include <cube_errors.h>
-#include <cube_parser.h>
+#include "c3d_libs.h"
+#include "c3d_parser.h"
+#include "c3d_utils.h"
 
 static void
 	ft_check_spawn(t_map *map, int x, int y)
