@@ -26,7 +26,7 @@ typedef struct s_map
 	int		width;
 	int		height;
 	char	**map;
-	int		player[2];
+	double	player[2];
 }	t_map;
 
 typedef struct s_img
@@ -41,12 +41,6 @@ typedef struct s_img
 	int		h;
 }			t_img;
 
-typedef struct s_player
-{
-	int	x;
-	int	y;
-}		t_player;
-
 typedef struct s_core
 {
 	void		*mlx;
@@ -56,7 +50,6 @@ typedef struct s_core
 	// t_img		textures_varie;
 	t_map		map;
 	t_types		types;
-	t_player	player;
 }				t_core;
 
 #endif

@@ -9,8 +9,8 @@ static void
 		return ;
 	if (map->player[Y])
 		ft_fail(ERR_PARSE_SPAWN);
-	map->player[Y] = y;
-	map->player[X] = x;
+	map->player[Y] = (double)y;
+	map->player[X] = (double)x;
 }
 
 static void
