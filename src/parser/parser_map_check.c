@@ -1,4 +1,6 @@
-#include "cub3d.h"
+#include "c3d_libs.h"
+#include "c3d_parser.h"
+#include "c3d_utils.h"
 
 static void
 	ft_check_spawn(t_map *map, int x, int y)
@@ -7,8 +9,8 @@ static void
 		return ;
 	if (map->player[Y])
 		ft_fail(ERR_PARSE_SPAWN);
-	map->player[Y] = y;
-	map->player[X] = x;
+	map->player[Y] = (double)y;
+	map->player[X] = (double)x;
 }
 
 static void
@@ -49,8 +51,6 @@ static void
 	return ;
 }
 
-
-/* CHECK IF VALID CHAR */
 void
 	ft_map_check(t_map *map)
 {

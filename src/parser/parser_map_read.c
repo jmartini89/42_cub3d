@@ -1,4 +1,6 @@
-#include "cub3d.h"
+#include "c3d_libs.h"
+#include "c3d_parser.h"
+#include "c3d_utils.h"
 
 static void
 	ft_map_save(char *line, t_map *map, int i)
@@ -11,8 +13,8 @@ static void
 	while (tmp && i && ++j <= i)
 		tmp[j] = map->map[j];
 	map->map = ft_calloc(i + 2, sizeof(*map->map));
-	if (!map->map)
-		ft_fail(ERR_SYS_MALLOC);
+	if (map->map == NULL)
+		ft_fail(strerror(errno));
 	j = -1;
 	while (tmp && i && ++j <= i)
 		map->map[j] = tmp[j];
@@ -36,7 +38,7 @@ static void
 	{
 		tmp = ft_calloc(sizeof(*tmp), map->width + 1);
 		if (tmp == NULL)
-			ft_fail(ERR_SYS_MALLOC);
+			ft_fail(strerror(errno));
 		ft_memset(tmp, SPACE, map->width);
 		ft_memcpy(tmp, map->map[i], ft_strlen(map->map[i]));
 		free(map->map[i]);
