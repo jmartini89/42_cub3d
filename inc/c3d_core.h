@@ -19,6 +19,8 @@ typedef struct s_types
 	char	*textures[4];
 	int		floor[3];
 	int		ceiling[3];
+	int		floor_rgb;
+	int		ceiling_rgb;
 }	t_types;
 
 typedef struct s_map
@@ -27,6 +29,7 @@ typedef struct s_map
 	int		height;
 	char	**map;
 	double	player[2];
+	double	dir[2];
 }	t_map;
 
 typedef struct s_img

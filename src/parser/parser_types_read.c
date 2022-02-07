@@ -15,6 +15,10 @@ static int
 	while (++i < 3)
 		if (types->floor[i] == -1 || types->ceiling[i] == -1)
 			return (FALSE);
+	types->floor_rgb =
+		(types->floor[0] << 16 | types->floor[1] << 8 | types->floor[2]);
+	types->ceiling_rgb =
+		(types->ceiling[0] << 16 | types->ceiling[1] << 8 | types->ceiling[2]);
 	return (TRUE);
 }
 
