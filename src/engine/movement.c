@@ -58,7 +58,7 @@ void
 }
 
 void
-	ft_input_rot(t_map *map, int type, int value)
+	ft_rotation(t_map *map, int type, int value)
 {
 	double	rotation;
 	double	old_dir_x;

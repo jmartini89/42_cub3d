@@ -14,7 +14,7 @@ void	ft_mouse(t_core *core);
 
 void	ft_input_mov_y(t_map *map, int key);
 void	ft_input_mov_x(t_map *map, int key);
-void	ft_input_rot(t_map *map, int type, int value);
+void	ft_rotation(t_map *map, int type, int value);
 
 void	ft_raycast(t_core *core);
 

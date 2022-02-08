@@ -18,5 +18,7 @@ void
 	core->win = mlx_new_window(
 			core->mlx, core->frame.w, core->frame.h, "test");
 
-	core->exit = 0;
+	core->exit = FALSE;
+	core->mouse_x = FALSE;
+	core->mouse_y = FALSE;
 }

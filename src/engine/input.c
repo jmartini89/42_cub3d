@@ -10,7 +10,7 @@ static int
 	if (key == KEY_A || key == KEY_D)
 		ft_input_mov_x(&core->map, key);
 	if (key == KEY_ARR_L || key == KEY_ARR_R)
-		ft_input_rot(&core->map, KEYBOARD, key);
+		ft_rotation(&core->map, KEYBOARD, key);
 	if (key == KEY_ESC)
 		core->exit = 1;
 	return (1);
@@ -39,5 +39,5 @@ void
 	mouse = core->mouse_x;
 	mlx_mouse_get_pos(core->win, &core->mouse_x, &core->mouse_y);
 	if (mouse != core->mouse_x)
-		ft_input_rot(&core->map, MOUSE, mouse - core->mouse_x);
+		ft_rotation(&core->map, MOUSE, mouse - core->mouse_x);
 }
