@@ -45,14 +45,19 @@ static int
 	ft_gfx(t_core *core)
 {
 	// clock_t	begin = clock();
+
+	ft_mouse(core);
+
 	mlx_sync(1, core->frame.img);
 	ft_raster(core);
 	mlx_put_image_to_window(
 		core->mlx, core->win, core->frame.img, 0, 0);
 	mlx_sync(3, core->win);
+
 	// clock_t	end = clock();
 	// clock_t	delta = end - begin;
 	// printf("%f\n", delta / 1000.0);
+
 	if (core->exit)
 	{
 		exit(0);
@@ -71,7 +76,7 @@ int
 	ft_parser(&core, argv[1]);
 
 	ft_engine_init(&core);
-	ft_input(&core);
+	ft_keyboard_hook(&core);
 	mlx_loop_hook(core.mlx, ft_gfx, &core);
 	mlx_loop(core.mlx);
 

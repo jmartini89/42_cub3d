@@ -52,6 +52,8 @@ typedef struct s_core
 	void		*mlx;
 	void		*win;
 	int			exit;
+	int			mouse_x;
+	int			mouse_y;
 	t_img		frame;
 	t_img		tex_n;
 	t_img		tex_s;

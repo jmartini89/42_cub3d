@@ -30,36 +30,36 @@ static void
 void
 	ft_raycast(t_core *core)
 {
-	double posX = core->map.player[X];
-	double posY = core->map.player[Y];
-	double dirX = core->map.dir[X];
-	double dirY = core->map.dir[Y];
-	core->map.camera[X] = -dirY * FOV;
-	core->map.camera[Y] = dirX * FOV;
+	double pos_x = core->map.player[X];
+	double pos_y = core->map.player[Y];
+	double dir_x = core->map.dir[X];
+	double dir_y = core->map.dir[Y];
+	core->map.camera[X] = -dir_y * FOV;
+	core->map.camera[Y] = dir_x * FOV;
 
 	int index = -1;
 	while (++index < core->frame.w)
 	{
-		double frameX = 2 * index / (double)core->frame.w - 1;
-		double rayDirX = dirX + core->map.camera[X] * frameX;
-		double rayDirY = dirY + core->map.camera[Y] * frameX;
+		double frame_x = 2 * index / (double)core->frame.w - 1;
+		double ray_dir_x = dir_x + core->map.camera[X] * frame_x;
+		double ray_dir_y = dir_y + core->map.camera[Y] * frame_x;
 
-		int mapX = (int)posX;
-		int mapY = (int)posY;
+		int mapX = (int)pos_x;
+		int mapY = (int)pos_y;
 
 		double sideDistX;
 		double sideDistY;
 
 		double deltaDistX;
 		double deltaDistY;
-		if (rayDirX == 0)
+		if (ray_dir_x == 0)
 			deltaDistX = 1.0;
 		else
-			deltaDistX = fabs(1 / rayDirX);
-		if (rayDirY == 0)
+			deltaDistX = fabs(1 / ray_dir_x);
+		if (ray_dir_y == 0)
 			deltaDistY = 1.0;
 		else
-			deltaDistY = fabs(1 / rayDirY);
+			deltaDistY = fabs(1 / ray_dir_y);
 
 		double perpWallDist;
 
@@ -68,26 +68,25 @@ void
 
 		int hit = 0;
 		int side;
-		// printf("rayX %f rayY %f\n", rayDirX, rayDirY);
-		if (rayDirX < 0)
+		if (ray_dir_x < 0)
 		{
 			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
+			sideDistX = (pos_x - mapX) * deltaDistX;
 		}
 		else
 		{
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+			sideDistX = (mapX + 1.0 - pos_x) * deltaDistX;
 		}
-		if (rayDirY < 0)
+		if (ray_dir_y < 0)
 		{
 			stepY = -1;
-			sideDistY = (posY - mapY) * deltaDistY;
+			sideDistY = (pos_y - mapY) * deltaDistY;
 		}
 		else
 		{
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+			sideDistY = (mapY + 1.0 - pos_y) * deltaDistY;
 		}
 
 		while (hit == 0)
