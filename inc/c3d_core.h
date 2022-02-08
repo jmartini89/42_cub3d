@@ -30,6 +30,7 @@ typedef struct s_map
 	char	**map;
 	double	player[2];
 	double	dir[2];
+	double	camera[2];
 }	t_map;
 
 typedef struct s_img

@@ -34,15 +34,15 @@ void
 	double posY = core->map.player[Y];
 	double dirX = core->map.dir[X];
 	double dirY = core->map.dir[Y];
-	double planeX = dirY * FOV;
-	double planeY = -dirX * FOV;
+	core->map.camera[X] = dirY * FOV;
+	core->map.camera[Y] = -dirX * FOV;
 
 	int index = -1;
 	while (++index < core->frame.w)
 	{
-		double cameraX = 2 * index / (double)core->frame.w - 1;
-		double rayDirX = dirX + planeX * cameraX;
-		double rayDirY = dirY + planeY * cameraX;
+		double frameX = 2 * index / (double)core->frame.w - 1;
+		double rayDirX = dirX + core->map.camera[X] * frameX;
+		double rayDirY = dirY + core->map.camera[Y] * frameX;
 
 		int mapX = (int)posX;
 		int mapY = (int)posY;

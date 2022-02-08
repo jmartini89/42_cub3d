@@ -1,9 +1,9 @@
-NO ./maps/42.cub
-SO ./maps/42.cub
-EA ./maps/42.cub
-WE ./maps/42.cub
+NO ./maps/test.cub
+SO ./maps/test.cub
+EA ./maps/test.cub
+WE ./maps/test.cub
 
-F 50,168,82
+F 92,92,92
 C 49,204,191
 
         1111111111111111111111111

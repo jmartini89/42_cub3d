@@ -2,29 +2,50 @@
 #include "c3d_core.h"
 #include "c3d_parser.h"
 
+#define MOVSPEED 0.1
+#define ROTSPEED 0.05
+
 static void
 	ft_input_mov(t_core *core, int key)
 {
-	if (key == KEY_W)
+	double	dirX;
+	double	dirY;
+
+	dirX = core->map.dir[X];
+	dirY = core->map.dir[Y];
+	if (key == KEY_S)
 	{
-		if (core->map.map
-			[(int)core->map.player[Y] + (int)core->map.dir[Y]]
-			[(int)core->map.player[X]]
-			== FLOOR)
-			core->map.player[Y] += core->map.dir[Y];
-		if (core->map.map
-			[(int)core->map.player[Y]]
-			[(int)core->map.player[X] + (int)core->map.dir[X]]
-			== FLOOR)
-			core->map.player[X] += core->map.dir[X];
+		dirX *= -1.0;
+		dirY *= -1.0;
 	}
+	if (core->map.map
+		[(int)(core->map.player[Y] + dirY)]
+		[(int)core->map.player[X]]
+		== FLOOR)
+		core->map.player[Y] += dirY * MOVSPEED;
+	if (core->map.map
+		[(int)core->map.player[Y]]
+		[(int)(core->map.player[X] + dirX)]
+		== FLOOR)
+		core->map.player[X] += dirX * MOVSPEED;
 }
 
 static void
 	ft_input_rot(t_core *core, int key)
 {
-	(void)core;
-	(void)key;
+	double	rotation;
+	double	oldDirX;
+	double	oldCameraX;
+
+	rotation = ROTSPEED;
+	if (key == KEY_D)
+		rotation *= -1;
+	oldDirX = core->map.dir[X];
+	core->map.dir[X] = core->map.dir[X] * cos(rotation) - core->map.dir[Y] * sin(rotation);
+	core->map.dir[Y] = oldDirX * sin(rotation) + core->map.dir[Y] * cos(rotation);
+	oldCameraX = core->map.camera[X];
+	core->map.camera[X] = core->map.camera[X] * cos(rotation) - core->map.camera[Y] * sin(rotation);
+	core->map.camera[Y] = oldCameraX * sin(rotation) + core->map.camera[Y] * cos(rotation);
 }
 
 static int

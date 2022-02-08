@@ -19,6 +19,7 @@ static void
 		map->dir[Y] = (int)1;
 	if (map->map[y][x] == WEST)
 		map->dir[Y] = (int)-1;
+	map->map[y][x] = FLOOR;
 }
 
 static void
