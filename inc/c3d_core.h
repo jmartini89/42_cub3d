@@ -11,6 +11,8 @@
 # define KEY_A 0x0
 # define KEY_S 0x1
 # define KEY_D 0x2
+# define KEY_ARR_L 0x7b
+# define KEY_ARR_R 0x7c
 # define KEY_ESC 0x35
 # define KEY_SPACE 0x31
 
@@ -51,7 +53,10 @@ typedef struct s_core
 	void		*win;
 	int			exit;
 	t_img		frame;
-	// t_img		textures_varie;
+	t_img		tex_n;
+	t_img		tex_s;
+	t_img		tex_e;
+	t_img		tex_w;
 	t_map		map;
 	t_types		types;
 }				t_core;

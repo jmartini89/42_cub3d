@@ -44,15 +44,15 @@ static void
 static int
 	ft_gfx(t_core *core)
 {
-	clock_t	begin = clock();
+	// clock_t	begin = clock();
 	mlx_sync(1, core->frame.img);
 	ft_raster(core);
 	mlx_put_image_to_window(
 		core->mlx, core->win, core->frame.img, 0, 0);
 	mlx_sync(3, core->win);
-	clock_t	end = clock();
-	clock_t	delta = end - begin;
-	printf("%f\n", delta / 1000.0);
+	// clock_t	end = clock();
+	// clock_t	delta = end - begin;
+	// printf("%f\n", delta / 1000.0);
 	if (core->exit)
 	{
 		exit(0);

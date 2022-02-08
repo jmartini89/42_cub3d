@@ -34,8 +34,8 @@ void
 	double posY = core->map.player[Y];
 	double dirX = core->map.dir[X];
 	double dirY = core->map.dir[Y];
-	core->map.camera[X] = dirY * FOV;
-	core->map.camera[Y] = -dirX * FOV;
+	core->map.camera[X] = -dirY * FOV;
+	core->map.camera[Y] = dirX * FOV;
 
 	int index = -1;
 	while (++index < core->frame.w)
@@ -68,6 +68,7 @@ void
 
 		int hit = 0;
 		int side;
+		// printf("rayX %f rayY %f\n", rayDirX, rayDirY);
 		if (rayDirX < 0)
 		{
 			stepX = -1;
@@ -91,7 +92,7 @@ void
 
 		while (hit == 0)
 		{
-			if(sideDistX < sideDistY)
+			if (sideDistX < sideDistY)
 			{
 				sideDistX += deltaDistX;
 				mapX += stepX;
@@ -103,11 +104,14 @@ void
 				mapY += stepY;
 				side = 1;
 			}
-			if(core->map.map[mapY][mapX] == WALL) hit = 1;
+			if (core->map.map[mapY][mapX] == WALL)
+				hit = 1;
 		}
 
-		if (side == 0) perpWallDist = (sideDistX - deltaDistX);
-		else perpWallDist = (sideDistY - deltaDistY);
+		if (side == 0)
+			perpWallDist = (sideDistX - deltaDistX);
+		else
+			perpWallDist = (sideDistY - deltaDistY);
 
 		int lineHeight = (int)(core->frame.h / perpWallDist);
 
