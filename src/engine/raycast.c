@@ -3,129 +3,114 @@
 #include "c3d_core.h"
 #include "c3d_parser.h"
 
-static void
-	ft_pixel_put(t_img *img, int x, int y, unsigned int color)
+void
+	ft_delta_len(t_raycast *rc)
 {
-	char	*dst;
+	if (rc->ray_dir[X] == 0)
+		rc->delta_dist[X] = 1.0;
+	else
+		rc->delta_dist[X] = fabs(1 / rc->ray_dir[X]);
+	if (rc->ray_dir[Y] == 0)
+		rc->delta_dist[Y] = 1.0;
+	else
+		rc->delta_dist[Y] = fabs(1 / rc->ray_dir[Y]);
+}
 
-	if (x >= 0 && x < img->w && y >= 0 && y < img->h && color < 0xff000000)
+void
+	ft_side_len(t_map *map, t_raycast *rc)
+{
+	if (rc->ray_dir[X] < 0)
 	{
-		dst = img->addr + ((y * img->size_line) + (x * img->pixel));
-		*(unsigned int *)dst = color;
+		rc->step[X] = -1;
+		rc->side_dist[X] = (
+				(map->player[X] - rc->map[X]) * rc->delta_dist[X]);
+	}
+	else
+	{
+		rc->step[X] = 1;
+		rc->side_dist[X] = (
+				(rc->map[X] + 1.0 - map->player[X]) * rc->delta_dist[X]);
+	}
+	if (rc->ray_dir[Y] < 0)
+	{
+		rc->step[Y] = -1;
+		rc->side_dist[Y] = (
+				(map->player[Y] - rc->map[Y]) * rc->delta_dist[Y]);
+	}
+	else
+	{
+		rc->step[Y] = 1;
+		rc->side_dist[Y] = (
+				(rc->map[Y] + 1.0 - map->player[Y]) * rc->delta_dist[Y]);
 	}
 }
 
-static void
-	ft_verline(t_core *core, int x, int drawStart, int drawEnd, int color)
+void
+	ft_dda(t_map *map, t_raycast *rc)
 {
-	int y = 0;
-	while (y < core->frame.h)
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
 	{
-		if (y >= drawStart && y <= drawEnd)
-			ft_pixel_put(&core->frame, x, y, color);
-		y++;
+		if (rc->side_dist[X] < rc->side_dist[Y])
+		{
+			rc->side_dist[X] += rc->delta_dist[X];
+			rc->map[X] += rc->step[X];
+			rc->side = 0;
+		}
+		else
+		{
+			rc->side_dist[Y] += rc->delta_dist[Y];
+			rc->map[Y] += rc->step[Y];
+			rc->side = 1;
+		}
+		if (map->map[rc->map[Y]][rc->map[X]] == WALL)
+			hit = 1;
 	}
+}
+
+void
+	ft_distances(t_img *frame, t_raycast *rc)
+{
+	int	line_height;
+
+	if (rc->side == 0)
+		rc->perp_wall_dist = (rc->side_dist[X] - rc->delta_dist[X]);
+	else
+		rc->perp_wall_dist = (rc->side_dist[Y] - rc->delta_dist[Y]);
+	line_height = (int)(frame->h / rc->perp_wall_dist);
+	rc->draw_start = -line_height / 2 + frame->h / 2;
+	if (rc->draw_start < 0)
+		rc->draw_start = 0;
+	rc->draw_end = line_height / 2 + frame->h / 2;
+	if (rc->draw_end >= frame->h)
+		rc->draw_end = frame->h - 1;
 }
 
 void
 	ft_raycast(t_core *core)
 {
-	double pos_x = core->map.player[X];
-	double pos_y = core->map.player[Y];
-	double dir_x = core->map.dir[X];
-	double dir_y = core->map.dir[Y];
-	core->map.camera[X] = -dir_y * FOV;
-	core->map.camera[Y] = dir_x * FOV;
+	t_raycast	rc;
+	int			index;
+	double		frame_x;
+	int			color;
 
-	int index = -1;
+	index = -1;
 	while (++index < core->frame.w)
 	{
-		double frame_x = 2 * index / (double)core->frame.w - 1;
-		double ray_dir_x = dir_x + core->map.camera[X] * frame_x;
-		double ray_dir_y = dir_y + core->map.camera[Y] * frame_x;
-
-		int mapX = (int)pos_x;
-		int mapY = (int)pos_y;
-
-		double sideDistX;
-		double sideDistY;
-
-		double deltaDistX;
-		double deltaDistY;
-		if (ray_dir_x == 0)
-			deltaDistX = 1.0;
-		else
-			deltaDistX = fabs(1 / ray_dir_x);
-		if (ray_dir_y == 0)
-			deltaDistY = 1.0;
-		else
-			deltaDistY = fabs(1 / ray_dir_y);
-
-		double perpWallDist;
-
-		int stepX;
-		int stepY;
-
-		int hit = 0;
-		int side;
-		if (ray_dir_x < 0)
-		{
-			stepX = -1;
-			sideDistX = (pos_x - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - pos_x) * deltaDistX;
-		}
-		if (ray_dir_y < 0)
-		{
-			stepY = -1;
-			sideDistY = (pos_y - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - pos_y) * deltaDistY;
-		}
-
-		while (hit == 0)
-		{
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			if (core->map.map[mapY][mapX] == WALL)
-				hit = 1;
-		}
-
-		if (side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
-		else
-			perpWallDist = (sideDistY - deltaDistY);
-
-		int lineHeight = (int)(core->frame.h / perpWallDist);
-
-
-		int drawStart = -lineHeight / 2 + core->frame.h / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + core->frame.h / 2;
-		if (drawEnd >= core->frame.h)
-			drawEnd = core->frame.h - 1;
-
-		int color = 0xff0000;
-		if (side == 1)
+		frame_x = 2 * index / (double)core->frame.w - 1;
+		rc.ray_dir[X] = core->map.dir[X] + core->map.camera[X] * frame_x;
+		rc.ray_dir[Y] = core->map.dir[Y] + core->map.camera[Y] * frame_x;
+		ft_delta_len(&rc);
+		rc.map[X] = (int)core->map.player[X];
+		rc.map[Y] = (int)core->map.player[Y];
+		ft_side_len(&core->map, &rc);
+		ft_dda(&core->map, &rc);
+		ft_distances(&core->frame, &rc);
+		color = 0xff0000;
+		if (rc.side == 1)
 			color = color / 2;
-
-		ft_verline(core, index, drawStart, drawEnd, color);
+		ft_verline(core, index, rc.draw_start, rc.draw_end, color);
 	}
 }

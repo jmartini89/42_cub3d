@@ -4,43 +4,7 @@
 #include "c3d_utils.h"
 #include "c3d_engine.h"
 
-static void
-	ft_background(t_img *frame, int ceiling, int floor)
-{
-	unsigned int	*dst;
-	int				i;
-	int				above;
-	int				below;
-	int				pixel;
-	
-	dst = (unsigned int *)frame->addr;
-	above = (frame->size_line * frame->h) / 2;
-	below = frame->size_line * frame->h;
-	pixel = frame->pixel;
-	i = 0;
-	while (i < above)
-	{
-		*dst = ceiling;
-		dst++;
-		i += pixel;
-	}
-	while (i < below)
-	{
-		*dst = floor;
-		dst++;
-		i += pixel;
-	}
-}
-
-static void
-	ft_raster(t_core *core)
-{
-	ft_background(
-		&core->frame, core->types.ceiling_rgb, core->types.floor_rgb);
-	ft_raycast(core);
-}
-
-#include <time.h>
+#include <time.h> // TMP
 static int
 	ft_gfx(t_core *core)
 {
@@ -49,7 +13,7 @@ static int
 	ft_mouse(core);
 
 	mlx_sync(1, core->frame.img);
-	ft_raster(core);
+	ft_draw(core);
 	mlx_put_image_to_window(
 		core->mlx, core->win, core->frame.img, 0, 0);
 	mlx_sync(3, core->win);

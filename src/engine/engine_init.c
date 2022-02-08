@@ -1,5 +1,6 @@
 #include "c3d_libs.h"
 #include "c3d_core.h"
+#include "c3d_engine.h"
 
 void
 	ft_engine_init(t_core *core)
@@ -21,4 +22,6 @@ void
 	core->exit = FALSE;
 	core->mouse_x = FALSE;
 	core->mouse_y = FALSE;
+	core->map.camera[X] = -core->map.dir[Y] * FOV;
+	core->map.camera[Y] = core->map.dir[X] * FOV;
 }
