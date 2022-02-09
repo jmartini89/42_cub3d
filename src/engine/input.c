@@ -40,4 +40,9 @@ void
 	mlx_mouse_get_pos(core->win, &core->mouse_x, &core->mouse_y);
 	if (mouse != core->mouse_x)
 		ft_rotation(&core->map, MOUSE, mouse - core->mouse_x);
+	if (core->mouse_x >= core->frame.w || core->mouse_x <= core->frame.w)
+	{
+		mlx_mouse_move(core->win, core->frame.w / 2, core->frame.h / 2);
+		core->mouse_x = core->frame.w / 2;
+	}
 }
