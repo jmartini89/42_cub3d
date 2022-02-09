@@ -2,6 +2,19 @@
 #include "c3d_core.h"
 #include "c3d_engine.h"
 
+static void
+	ft_mouse_state(t_core *core)
+{
+	if (core->mouse_state == FALSE)
+	{
+		mlx_mouse_hide();
+		core->mouse_state = TRUE;
+		return ;
+	}
+	mlx_mouse_show();
+	core->mouse_state = FALSE;
+}
+
 static int
 	ft_keys(int key, t_core *core)
 {
@@ -11,6 +24,8 @@ static int
 		ft_input_mov_x(&core->map, key);
 	if (key == KEY_ARR_L || key == KEY_ARR_R)
 		ft_rotation(&core->map, KEYBOARD, key);
+	if (key == KEY_SPACE)
+		ft_mouse_state(core);
 	if (key == KEY_ESC)
 		core->exit = 1;
 	return (1);
@@ -36,6 +51,8 @@ void
 {
 	int	mouse;
 
+	if (core->mouse_state == FALSE)
+		return ;
 	mouse = core->mouse_x;
 	mlx_mouse_get_pos(core->win, &core->mouse_x, &core->mouse_y);
 	if (mouse != core->mouse_x)

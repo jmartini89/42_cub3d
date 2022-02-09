@@ -3,6 +3,15 @@
 
 # include "c3d_core.h"
 
+# define KEY_W 0xd
+# define KEY_A 0x0
+# define KEY_S 0x1
+# define KEY_D 0x2
+# define KEY_ARR_L 0x7b
+# define KEY_ARR_R 0x7c
+# define KEY_ESC 0x35
+# define KEY_SPACE 0x31
+
 # define FOV 0.66
 # define KEYBOARD 0
 # define MOUSE 1

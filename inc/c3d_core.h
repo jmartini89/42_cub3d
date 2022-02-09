@@ -7,15 +7,6 @@
 # define Y 0
 # define X 1
 
-# define KEY_W 0xd
-# define KEY_A 0x0
-# define KEY_S 0x1
-# define KEY_D 0x2
-# define KEY_ARR_L 0x7b
-# define KEY_ARR_R 0x7c
-# define KEY_ESC 0x35
-# define KEY_SPACE 0x31
-
 typedef struct s_types
 {
 	char	*textures[4];
@@ -52,6 +43,7 @@ typedef struct s_core
 	void		*mlx;
 	void		*win;
 	int			exit;
+	int			mouse_state;
 	int			mouse_x;
 	int			mouse_y;
 	t_img		frame;

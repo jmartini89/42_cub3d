@@ -20,6 +20,7 @@ void
 			core->mlx, core->frame.w, core->frame.h, "test");
 
 	core->exit = FALSE;
+	core->mouse_state = FALSE;
 	core->mouse_x = FALSE;
 	core->mouse_y = FALSE;
 	core->map.camera[X] = -core->map.dir[Y] * FOV;

@@ -21,13 +21,13 @@ void
 		dir_y *= -1.0;
 	}
 	if (map->map
-		[(int)(map->player[Y] + dir_y)]
+		[(int)(map->player[Y] + dir_y * MOVSPEED)]
 		[(int)(map->player[X])]
 		== FLOOR)
 		map->player[Y] += dir_y * MOVSPEED;
 	if (map->map
 		[(int)(map->player[Y])]
-		[(int)(map->player[X] + dir_x)]
+		[(int)(map->player[X] + dir_x * MOVSPEED)]
 		== FLOOR)
 		map->player[X] += dir_x * MOVSPEED;
 }
@@ -46,13 +46,13 @@ void
 		dir_y *= -1.0;
 	}
 	if (map->map
-		[(int)(map->player[Y] + dir_x)]
+		[(int)(map->player[Y] + dir_x * MOVSPEED)]
 		[(int)(map->player[X])]
 		== FLOOR)
 		map->player[Y] += dir_x * MOVSPEED;
 	if (map->map
 		[(int)(map->player[Y])]
-		[(int)(map->player[X] + dir_y)]
+		[(int)(map->player[X] + dir_y * MOVSPEED)]
 		== FLOOR)
 		map->player[X] -= dir_y * MOVSPEED;
 }
