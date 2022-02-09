@@ -88,6 +88,20 @@ void
 		rc->draw_end = frame->h - 1;
 }
 
+int
+	ft_wall_compass(t_raycast *rc, t_core *core)
+{
+	if (rc->map[Y] < core->map.player[Y] && rc->side)
+		return (0xff0000);
+	if (rc->map[Y] > core->map.player[Y] && rc->side)
+		return (0xfcba03);
+	if (rc->map[X] > core->map.player[X] && !rc->side)
+		return (0x002fff);
+	if (rc->map[X] < core->map.player[X] && !rc->side)
+		return (0x00ff37);
+	return (0x0);
+}
+
 void
 	ft_raycast(t_core *core)
 {
@@ -108,9 +122,7 @@ void
 		ft_side_len(&core->map, &rc);
 		ft_dda(&core->map, &rc);
 		ft_distances(&core->frame, &rc);
-		color = 0xff0000;
-		if (rc.side == 1)
-			color = color / 2;
+		color = ft_wall_compass(&rc, core);
 		ft_verline(core, index, rc.draw_start, rc.draw_end, color);
 	}
 }

@@ -1,4 +1,4 @@
-all : libft.a #libmlx.dylib
+all : libft.a libmlx.dylib
 
 libft.a :
 	@make -s -C ./libft
@@ -8,11 +8,12 @@ libft.a :
 
 libmlx.dylib :
 	@make -s -C ./mlx
+	@cp ./mlx/$@ .
 	@cp ./mlx/$@ ..
 	@make clean -C ./mlx
 	@echo "\033[32m"$@" compilation successfull\033[0m"
 
 clean :
 	@rm -f libft.a
-#	@rm -f ../libmlx.dylib
+	@rm -f ../libmlx.dylib
 	@echo "\033[33mlibraries clean completed\033[0m"
