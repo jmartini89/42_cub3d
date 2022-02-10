@@ -25,6 +25,8 @@ typedef struct s_raycast
 	int		step[2];
 	int		side;
 	double	perp_wall_dist;
+	double	wall_x;
+	int		tex[2];
 	int		draw_start;
 	int		draw_end;
 }			t_raycast;

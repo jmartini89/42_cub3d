@@ -3,7 +3,7 @@
 #include "c3d_core.h"
 #include "c3d_parser.h"
 
-void
+static void
 	ft_delta_len(t_raycast *rc)
 {
 	if (rc->ray_dir[X] == 0)
@@ -16,7 +16,7 @@ void
 		rc->delta_dist[Y] = fabs(1 / rc->ray_dir[Y]);
 }
 
-void
+static void
 	ft_side_len(t_map *map, t_raycast *rc)
 {
 	if (rc->ray_dir[X] < 0)
@@ -45,7 +45,7 @@ void
 	}
 }
 
-void
+static void
 	ft_dda(t_map *map, t_raycast *rc)
 {
 	int	hit;
@@ -70,7 +70,7 @@ void
 	}
 }
 
-void
+static void
 	ft_distances(t_img *frame, t_raycast *rc)
 {
 	int	line_height;
@@ -102,6 +102,20 @@ int
 	if (rc->map[X] < core->map.player[X] && !rc->side)
 		return (0x00ff37);
 	return (0x0);
+}
+
+static void
+	ft_wall(t_raycast *rc, t_core *core)
+{
+	if (rc->side == 0)
+		rc->wall_x = core->map.player[Y] + rc->perp_wall_dist * rc->ray_dir[Y];
+	else
+		rc->wall_x = core->map.player[X] + rc->perp_wall_dist * rc->ray_dir[X];
+	rc->wall_x -= floor(rc->wall_x);
+	rc->tex[X] = (int)rc->wall_x * (double)TEXWIDTH;
+	if ((rc->side == 0 && rc->ray_dir[X] > 0)
+		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
+		rc->tex[X] = TEXWIDTH - rc->tex[X] - 1;
 }
 
 void
