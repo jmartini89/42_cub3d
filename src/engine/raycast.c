@@ -79,6 +79,8 @@ void
 		rc->perp_wall_dist = (rc->side_dist[X] - rc->delta_dist[X]);
 	else
 		rc->perp_wall_dist = (rc->side_dist[Y] - rc->delta_dist[Y]);
+	if ((int)rc->perp_wall_dist == 0)
+		rc->perp_wall_dist = 1;
 	line_height = (int)(frame->h / rc->perp_wall_dist);
 	rc->draw_start = -line_height / 2 + frame->h / 2;
 	if (rc->draw_start < 0)
