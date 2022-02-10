@@ -18,10 +18,9 @@ static void
 static int
 	ft_keys(int key, t_core *core)
 {
-	if (key == KEY_W || key == KEY_S)
-		ft_input_mov_y(&core->map, key);
-	if (key == KEY_A || key == KEY_D)
-		ft_input_mov_x(&core->map, key);
+	if (key == KEY_W || key == KEY_S
+		|| key == KEY_A || key == KEY_D)
+		ft_movement(&core->map, key);
 	if (key == KEY_ARR_L || key == KEY_ARR_R)
 		ft_rotation(&core->map, KEYBOARD, key);
 	if (key == KEY_SPACE)

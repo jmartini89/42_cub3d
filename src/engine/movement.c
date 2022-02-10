@@ -7,19 +7,9 @@
 #define ROTSPEED 0.05
 #define MROTSPEED -0.0075
 
-void
-	ft_input_mov_y(t_map *map, int key)
+static void
+	ft_execute_movement(t_map *map, double dir_x, double dir_y)
 {
-	double	dir_x;
-	double	dir_y;
-
-	dir_x = map->dir[X];
-	dir_y = map->dir[Y];
-	if (key == KEY_S)
-	{
-		dir_x *= -1.0;
-		dir_y *= -1.0;
-	}
 	if (map->map
 		[(int)(map->player[Y] + dir_y * MOVSPEED)]
 		[(int)(map->player[X])]
@@ -33,28 +23,27 @@ void
 }
 
 void
-	ft_input_mov_x(t_map *map, int key)
+	ft_movement(t_map *map, int key)
 {
 	double	dir_x;
 	double	dir_y;
 
-	dir_x = map->dir[X];
-	dir_y = map->dir[Y];
-	if (key == KEY_A)
+	if (key == KEY_W || key == KEY_S)
+	{
+		dir_x = map->dir[X];
+		dir_y = map->dir[Y];
+	}
+	else
+	{
+		dir_x = map->camera[X];
+		dir_y = map->camera[Y];
+	}
+	if (key == KEY_S || key == KEY_A)
 	{
 		dir_x *= -1.0;
 		dir_y *= -1.0;
 	}
-	if (map->map
-		[(int)(map->player[Y] + dir_x * MOVSPEED)]
-		[(int)(map->player[X])]
-		== FLOOR)
-		map->player[Y] += dir_x * MOVSPEED;
-	if (map->map
-		[(int)(map->player[Y])]
-		[(int)(map->player[X] + dir_y * MOVSPEED)]
-		== FLOOR)
-		map->player[X] -= dir_y * MOVSPEED;
+	ft_execute_movement(map, dir_x, dir_y);
 }
 
 void
