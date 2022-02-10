@@ -25,7 +25,7 @@ void
 		rc->side_dist[X] = (
 				(map->player[X] - rc->map[X]) * rc->delta_dist[X]);
 	}
-	else
+	else if (rc->ray_dir[X] > 0)
 	{
 		rc->step[X] = 1;
 		rc->side_dist[X] = (
@@ -37,7 +37,7 @@ void
 		rc->side_dist[Y] = (
 				(map->player[Y] - rc->map[Y]) * rc->delta_dist[Y]);
 	}
-	else
+	else if (rc->ray_dir[Y] > 0)
 	{
 		rc->step[Y] = 1;
 		rc->side_dist[Y] = (
