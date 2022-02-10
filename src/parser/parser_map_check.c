@@ -9,8 +9,17 @@ static void
 		return ;
 	if (map->player[Y])
 		ft_fail(ERR_PARSE_SPAWN);
-	map->player[Y] = (double)y;
-	map->player[X] = (double)x;
+	map->player[Y] = y + 0.5;
+	map->player[X] = x + 0.5;
+	if (map->map[y][x] == NORTH)
+		map->dir[Y] = (int)-1;
+	if (map->map[y][x] == SOUTH)
+		map->dir[Y] = (int)1;
+	if (map->map[y][x] == EAST)
+		map->dir[X] = (int)1;
+	if (map->map[y][x] == WEST)
+		map->dir[X] = (int)-1;
+	map->map[y][x] = FLOOR;
 }
 
 static void

@@ -23,6 +23,8 @@ static void
 	core->map.height = 0;
 	core->map.player[Y] = 0;
 	core->map.player[X] = 0;
+	core->map.dir[Y] = 0;
+	core->map.dir[X] = 0;
 	i = -1;
 	while (++i < 4)
 		core->types.textures[i] = NULL;
@@ -48,16 +50,4 @@ void
 	ft_map_read(fd, &core->map);
 	close(fd);
 	ft_map_check(&core->map);
-
-	int i = -1;
-	while (++i < 3)
-		printf("%d ", core->types.floor[i]);
-	printf("\n");
-	i = -1;
-	while (++i < 3)
-		printf("%d ", core->types.ceiling[i]);
-	printf("\n");
-	i = -1;
-	while (++i < 4)
-		printf("%s\n", core->types.textures[i]);
 }

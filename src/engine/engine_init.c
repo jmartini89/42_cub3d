@@ -1,5 +1,6 @@
 #include "c3d_libs.h"
 #include "c3d_core.h"
+#include "c3d_engine.h"
 
 void
 	ft_engine_init(t_core *core)
@@ -18,5 +19,11 @@ void
 	core->win = mlx_new_window(
 			core->mlx, core->frame.w, core->frame.h, "test");
 
-	core->exit = 0;
+	core->input.exit = FALSE;
+	core->input.key_state = FALSE;
+	core->input.mouse_state = FALSE;
+	core->input.mouse_x = FALSE;
+	core->input.mouse_y = FALSE;
+	core->map.camera[X] = -core->map.dir[Y] * FOV;
+	core->map.camera[Y] = core->map.dir[X] * FOV;
 }
