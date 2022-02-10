@@ -1,7 +1,7 @@
-NO ./maps/test.cub
-SO ./maps/test.cub
-EA ./maps/test.cub
-WE ./maps/test.cub
+NO ./textures/colorstone.xpm
+SO ./textures/greystone.xpm
+EA ./textures/mossy.xpm
+WE ./textures/redbrick.xpm
 
 F 92,92,92
 C 49,204,191

@@ -71,7 +71,7 @@ static void
 }
 
 static void
-	ft_distances(t_img *frame, t_raycast *rc)
+	ft_distances(t_raycast *rc)
 {
 	int	line_height;
 
@@ -81,13 +81,13 @@ static void
 		rc->perp_wall_dist = (rc->side_dist[Y] - rc->delta_dist[Y]);
 	if ((int)rc->perp_wall_dist == 0)
 		rc->perp_wall_dist = 1;
-	line_height = (int)(frame->h / rc->perp_wall_dist);
-	rc->draw_start = -line_height / 2 + frame->h / 2;
+	line_height = (int)(FRAME_H / rc->perp_wall_dist);
+	rc->draw_start = -line_height / 2 + FRAME_H / 2;
 	if (rc->draw_start < 0)
 		rc->draw_start = 0;
-	rc->draw_end = line_height / 2 + frame->h / 2;
-	if (rc->draw_end >= frame->h)
-		rc->draw_end = frame->h - 1;
+	rc->draw_end = line_height / 2 + FRAME_H / 2;
+	if (rc->draw_end >= FRAME_H)
+		rc->draw_end = FRAME_H - 1;
 }
 
 int
@@ -104,19 +104,19 @@ int
 	return (0x0);
 }
 
-static void
-	ft_wall(t_raycast *rc, t_core *core)
-{
-	if (rc->side == 0)
-		rc->wall_x = core->map.player[Y] + rc->perp_wall_dist * rc->ray_dir[Y];
-	else
-		rc->wall_x = core->map.player[X] + rc->perp_wall_dist * rc->ray_dir[X];
-	rc->wall_x -= floor(rc->wall_x);
-	rc->tex[X] = (int)rc->wall_x * (double)TEXWIDTH;
-	if ((rc->side == 0 && rc->ray_dir[X] > 0)
-		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
-		rc->tex[X] = TEXWIDTH - rc->tex[X] - 1;
-}
+// static void
+// 	ft_wall(t_raycast *rc, t_core *core)
+// {
+// 	if (rc->side == 0)
+// 		rc->wall_x = core->map.player[Y] + rc->perp_wall_dist * rc->ray_dir[Y];
+// 	else
+// 		rc->wall_x = core->map.player[X] + rc->perp_wall_dist * rc->ray_dir[X];
+// 	rc->wall_x -= floor(rc->wall_x);
+// 	rc->tex[X] = (int)rc->wall_x * (double)TEX_W;
+// 	if ((rc->side == 0 && rc->ray_dir[X] > 0)
+// 		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
+// 		rc->tex[X] = TEX_W - rc->tex[X] - 1;
+// }
 
 void
 	ft_raycast(t_core *core)
@@ -127,9 +127,9 @@ void
 	int			color;
 
 	index = -1;
-	while (++index < core->frame.w)
+	while (++index < FRAME_W)
 	{
-		frame_x = 2 * index / (double)core->frame.w - 1;
+		frame_x = 2 * index / (double)FRAME_W - 1;
 		rc.ray_dir[X] = core->map.dir[X] + core->map.camera[X] * frame_x;
 		rc.ray_dir[Y] = core->map.dir[Y] + core->map.camera[Y] * frame_x;
 		ft_delta_len(&rc);
@@ -137,7 +137,7 @@ void
 		rc.map[Y] = (int)core->map.player[Y];
 		ft_side_len(&core->map, &rc);
 		ft_dda(&core->map, &rc);
-		ft_distances(&core->frame, &rc);
+		ft_distances(&rc);
 		color = ft_wall_compass(&rc, core);
 		ft_verline(core, index, rc.draw_start, rc.draw_end, color);
 	}

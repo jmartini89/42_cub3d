@@ -18,7 +18,7 @@ void
 	ft_verline(t_core *core, int x, int drawStart, int drawEnd, int color)
 {
 	int y = 0;
-	while (y < core->frame.h)
+	while (y < FRAME_W)
 	{
 		if (y >= drawStart && y <= drawEnd)
 			ft_pixel_put(&core->frame, x, y, color);

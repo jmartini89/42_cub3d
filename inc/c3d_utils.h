@@ -14,6 +14,10 @@
 # define ERR_PARSE_TYPE_MULTI "Parsing: multiple initializations of same type"
 # define ERR_PARSE_TYPE_RGB_STR "Parsing: Ceiling/Floor wrong RGB string"
 # define ERR_PARSE_TYPE_RGB_VAL "Parsing: Ceiling/Floor wrong RGB value"
+# define ERR_MLX_INIT "MLX: Connection to display failed"
+# define ERR_MLX_WIN "MLX: Creation of new window failed"
+# define ERR_MLX_IMG "MLX: IMG initialization failed"
+# define ERR_MLX_XPM "MLX: XPM to IMG load failed"
 
 int		get_next_line(int fd, char **line);
 void	ft_garbage_collector(t_core *core);

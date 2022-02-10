@@ -16,6 +16,11 @@
 # define KEYBOARD 0
 # define MOUSE 1
 
+# define FRAME_W 800
+# define FRAME_H 600
+# define TEX_W 64
+# define TEX_H 64
+
 typedef struct s_raycast
 {
 	double	ray_dir[2];

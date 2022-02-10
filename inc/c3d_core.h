@@ -53,10 +53,7 @@ typedef struct s_core
 	void		*mlx;
 	void		*win;
 	t_img		frame;
-	t_img		tex_n;
-	t_img		tex_s;
-	t_img		tex_e;
-	t_img		tex_w;
+	t_img		tex[4];
 	t_map		map;
 	t_types		types;
 	t_input		input;
