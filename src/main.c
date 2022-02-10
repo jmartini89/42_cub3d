@@ -11,7 +11,7 @@ static int
 	// clock_t	begin = clock();
 
 	ft_mouse(core);
-
+	ft_keyboard(core);
 	mlx_sync(1, core->frame.img);
 	ft_draw(core);
 	mlx_put_image_to_window(
@@ -22,7 +22,7 @@ static int
 	// clock_t	delta = end - begin;
 	// printf("%f\n", delta / 1000.0);
 
-	if (core->exit)
+	if (core->input.exit)
 	{
 		exit(0);
 		// ft_exit(core);
@@ -40,7 +40,7 @@ int
 	ft_parser(&core, argv[1]);
 
 	ft_engine_init(&core);
-	ft_keyboard_hook(&core);
+	ft_event_hook(&core);
 	mlx_loop_hook(core.mlx, ft_gfx, &core);
 	mlx_loop(core.mlx);
 

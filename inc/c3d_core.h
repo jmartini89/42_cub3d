@@ -38,14 +38,20 @@ typedef struct s_img
 	int		h;
 }			t_img;
 
+typedef struct s_input
+{
+	int		key_state;
+	int		key;
+	int		mouse_state;
+	int		mouse_x;
+	int		mouse_y;
+	int		exit;
+}			t_input;
+
 typedef struct s_core
 {
 	void		*mlx;
 	void		*win;
-	int			exit;
-	int			mouse_state;
-	int			mouse_x;
-	int			mouse_y;
 	t_img		frame;
 	t_img		tex_n;
 	t_img		tex_s;
@@ -53,6 +59,7 @@ typedef struct s_core
 	t_img		tex_w;
 	t_map		map;
 	t_types		types;
+	t_input		input;
 }				t_core;
 
 #endif

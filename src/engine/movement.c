@@ -3,23 +3,22 @@
 #include "c3d_parser.h"
 #include "c3d_engine.h"
 
-#define MOVSPEED 0.1
-#define ROTSPEED 0.05
-#define MROTSPEED -0.0075
+#define KEYSPEED 0.05
+#define MOUSPEED -0.0075
 
 static void
 	ft_execute_movement(t_map *map, double dir_x, double dir_y)
 {
 	if (map->map
-		[(int)(map->player[Y] + dir_y * MOVSPEED)]
+		[(int)(map->player[Y] + dir_y * KEYSPEED)]
 		[(int)(map->player[X])]
 		== FLOOR)
-		map->player[Y] += dir_y * MOVSPEED;
+		map->player[Y] += dir_y * KEYSPEED;
 	if (map->map
 		[(int)(map->player[Y])]
-		[(int)(map->player[X] + dir_x * MOVSPEED)]
+		[(int)(map->player[X] + dir_x * KEYSPEED)]
 		== FLOOR)
-		map->player[X] += dir_x * MOVSPEED;
+		map->player[X] += dir_x * KEYSPEED;
 }
 
 void
@@ -55,12 +54,12 @@ void
 
 	if (type == KEYBOARD)
 	{
-		rotation = ROTSPEED;
+		rotation = KEYSPEED;
 		if (value == KEY_ARR_L)
 			rotation *= -1;
 	}
 	else
-		rotation = value * MROTSPEED;
+		rotation = value * MOUSPEED;
 	old_dir_x = map->dir[X];
 	map->dir[X] = map->dir[X] * cos(rotation) - map->dir[Y] * sin(rotation);
 	map->dir[Y] = old_dir_x * sin(rotation) + map->dir[Y] * cos(rotation);

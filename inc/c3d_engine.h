@@ -31,11 +31,10 @@ typedef struct s_raycast
 
 void	ft_engine_init(t_core *core);
 
-int		ft_keyboard_hook(t_core *core);
+int		ft_event_hook(t_core *core);
+void	ft_keyboard(t_core *core);
 void	ft_mouse(t_core *core);
 
-void	ft_input_mov_y(t_map *map, int key);
-void	ft_input_mov_x(t_map *map, int key);
 void	ft_movement(t_map *map, int key);
 void	ft_rotation(t_map *map, int type, int value);
 
