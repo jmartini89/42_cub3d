@@ -73,50 +73,51 @@ static void
 static void
 	ft_distances(t_raycast *rc)
 {
-	int	line_height;
-
 	if (rc->side == 0)
 		rc->perp_wall_dist = (rc->side_dist[X] - rc->delta_dist[X]);
 	else
 		rc->perp_wall_dist = (rc->side_dist[Y] - rc->delta_dist[Y]);
 	if ((int)rc->perp_wall_dist == 0)
 		rc->perp_wall_dist = 1;
-	line_height = (int)(FRAME_H / rc->perp_wall_dist);
-	rc->draw_start = -line_height / 2 + FRAME_H / 2;
+	rc->line_height = (int)(FRAME_H / rc->perp_wall_dist);
+	rc->draw_start = -rc->line_height / 2 + FRAME_H / 2;
 	if (rc->draw_start < 0)
 		rc->draw_start = 0;
-	rc->draw_end = line_height / 2 + FRAME_H / 2;
+	rc->draw_end = rc->line_height / 2 + FRAME_H / 2;
 	if (rc->draw_end >= FRAME_H)
 		rc->draw_end = FRAME_H - 1;
 }
 
-int
-	ft_wall_compass(t_raycast *rc, t_core *core)
+t_img *
+	ft_wall_tex_picker(t_raycast *rc, t_core *core)
 {
 	if (rc->map[Y] < core->map.player[Y] && rc->side)
-		return (0xff0000);
+		return (&core->tex[N_TEX]);
 	if (rc->map[Y] > core->map.player[Y] && rc->side)
-		return (0xfcba03);
+		return (&core->tex[S_TEX]);
 	if (rc->map[X] > core->map.player[X] && !rc->side)
-		return (0x002fff);
+		return (&core->tex[E_TEX]);
 	if (rc->map[X] < core->map.player[X] && !rc->side)
-		return (0x00ff37);
-	return (0x0);
+		return (&core->tex[W_TEX]);
+	return (NULL);
 }
 
-// static void
-// 	ft_wall(t_raycast *rc, t_core *core)
-// {
-// 	if (rc->side == 0)
-// 		rc->wall_x = core->map.player[Y] + rc->perp_wall_dist * rc->ray_dir[Y];
-// 	else
-// 		rc->wall_x = core->map.player[X] + rc->perp_wall_dist * rc->ray_dir[X];
-// 	rc->wall_x -= floor(rc->wall_x);
-// 	rc->tex[X] = (int)rc->wall_x * (double)TEX_W;
-// 	if ((rc->side == 0 && rc->ray_dir[X] > 0)
-// 		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
-// 		rc->tex[X] = TEX_W - rc->tex[X] - 1;
-// }
+static void
+	ft_tex_calc(t_raycast *rc, t_map *map)
+{
+	if (rc->side == 0)
+		rc->wall_x = map->player[Y] + rc->perp_wall_dist * rc->ray_dir[Y];
+	else
+		rc->wall_x = map->player[X] + rc->perp_wall_dist * rc->ray_dir[X];
+	rc->wall_x -= floor(rc->wall_x);
+	rc->tex[X] = (int)rc->wall_x * (double)TEX_W;
+	if ((rc->side == 0 && rc->ray_dir[X] > 0)
+		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
+		rc->tex[X] = TEX_W - rc->tex[X] - 1;
+	rc->tex_step = 1.0 * TEX_H / rc->line_height;
+	rc->tex_pos = (
+		(rc->draw_start - FRAME_H / 2 + rc->line_height / 2) * rc->tex_step);
+}
 
 void
 	ft_raycast(t_core *core)
@@ -124,7 +125,7 @@ void
 	t_raycast	rc;
 	int			index;
 	double		frame_x;
-	int			color;
+	t_img		*texture;
 
 	index = -1;
 	while (++index < FRAME_W)
@@ -138,7 +139,8 @@ void
 		ft_side_len(&core->map, &rc);
 		ft_dda(&core->map, &rc);
 		ft_distances(&rc);
-		color = ft_wall_compass(&rc, core);
-		ft_verline(core, index, rc.draw_start, rc.draw_end, color);
+		texture = ft_wall_tex_picker(&rc, core);
+		ft_tex_calc(&rc, &core->map);
+		ft_vertex(core, index, &rc, texture);
 	}
 }

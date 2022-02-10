@@ -30,10 +30,13 @@ typedef struct s_raycast
 	int		step[2];
 	int		side;
 	double	perp_wall_dist;
-	double	wall_x;
-	int		tex[2];
+	int		line_height;
 	int		draw_start;
 	int		draw_end;
+	double	wall_x;
+	int		tex[2];
+	double	tex_step;
+	double	tex_pos;
 }			t_raycast;
 
 void	ft_engine_init(t_core *core);
@@ -48,6 +51,8 @@ void	ft_rotation(t_map *map, int type, int value);
 void	ft_draw(t_core *core);
 void	ft_verline(
 			t_core *core, int x, int drawStart, int drawEnd, int color);
+void	ft_vertex(
+			t_core *core, int x, t_raycast *rc, t_img *texture);
 void	ft_raycast(t_core *core);
 
 #endif

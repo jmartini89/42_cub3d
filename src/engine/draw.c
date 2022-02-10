@@ -15,6 +15,23 @@ static void
 }
 
 void
+	ft_vertex(t_core *core, int x, t_raycast *rc, t_img *texture)
+{
+	int y;
+	char *color;
+
+	y = rc->draw_start;
+	while (y <= rc->draw_end)
+	{
+		rc->tex[Y] = (int)rc->tex_pos & (TEX_H - 1);
+		rc->tex_pos += rc->tex_step;
+		color = texture->addr + texture->size_line * rc->tex[Y] + rc->tex[X];
+		ft_pixel_put(&core->frame, x, y, *(unsigned int *)color);
+		y++;
+	}
+}
+
+void
 	ft_verline(t_core *core, int x, int drawStart, int drawEnd, int color)
 {
 	int y = 0;
