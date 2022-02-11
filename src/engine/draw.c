@@ -15,7 +15,7 @@ void
 }
 
 void
-	ft_vertex(t_core *core, int x, t_raycast *rc, t_img *texture)
+	ft_ver_tex(t_img *frame, t_img *texture, t_raycast *rc, int x)
 {
 	int		y;
 	char	*color;
@@ -32,7 +32,7 @@ void
 		tex_pos += tex_step;
 		color = texture->addr
 			+ (texture->size_line * rc->tex[X]) + (rc->tex[Y] * texture->pixel);
-		ft_pixel_put(&core->frame, x, y, *(unsigned int *)color);
+		ft_pixel_put(frame, x, y, *(unsigned int *)color);
 		y++;
 	}
 }

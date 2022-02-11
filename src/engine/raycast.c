@@ -51,25 +51,26 @@ static void
 void
 	ft_raycast(t_core *core)
 {
-	t_raycast	rc;
 	int			index;
 	double		frame_x;
+	t_raycast	*rc;
 	t_img		*texture;
 
+	rc = &core->raycast;
 	index = -1;
 	while (++index < FRAME_W)
 	{
 		frame_x = 2 * index / (double)FRAME_W - 1;
-		rc.ray_dir[X] = core->map.dir[X] + core->map.camera[X] * frame_x;
-		rc.ray_dir[Y] = core->map.dir[Y] + core->map.camera[Y] * frame_x;
-		ft_delta_len(&rc);
-		rc.map[X] = (int)core->map.player[X];
-		rc.map[Y] = (int)core->map.player[Y];
-		ft_side_len(&core->map, &rc);
-		ft_dda(&core->map, &rc);
-		ft_distances(&rc);
-		texture = ft_wall_tex_picker(&rc, core);
-		ft_tex_calc(&rc, &core->map);
-		ft_vertex(core, index, &rc, texture);
+		rc->ray_dir[X] = core->map.dir[X] + core->map.camera[X] * frame_x;
+		rc->ray_dir[Y] = core->map.dir[Y] + core->map.camera[Y] * frame_x;
+		ft_delta_len(rc);
+		rc->map[X] = (int)core->map.player[X];
+		rc->map[Y] = (int)core->map.player[Y];
+		ft_side_len(&core->map, rc);
+		ft_dda(&core->map, rc);
+		ft_distances(rc);
+		texture = ft_wall_tex_picker(rc, core);
+		ft_tex_calc(rc, &core->map);
+		ft_ver_tex(&core->frame, texture, rc, index);
 	}
 }

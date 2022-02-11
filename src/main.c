@@ -6,7 +6,7 @@
 
 #include <time.h> // TMP
 static int
-	ft_gfx(t_core *core)
+	ft_engine(t_core *core)
 {
 	// clock_t	begin = clock();
 
@@ -27,7 +27,7 @@ static int
 		exit(0);
 		// ft_exit(core);
 	}
-	return (0);
+	return (1);
 }
 
 int
@@ -38,12 +38,10 @@ int
 	if (argc != 2)
 		ft_fail("Main: Wrong number of arguments");
 	ft_parser(&core, argv[1]);
-
 	ft_engine_init(&core);
 	ft_event_hook(&core);
-	mlx_loop_hook(core.mlx, ft_gfx, &core);
+	mlx_loop_hook(core.mlx, ft_engine, &core);
 	mlx_loop(core.mlx);
-
 	ft_garbage_collector(&core);
 	return (EXIT_SUCCESS);
 }
