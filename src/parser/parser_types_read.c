@@ -3,6 +3,12 @@
 #include "c3d_utils.h"
 
 static int
+	ft_arr_rgb(int *arr)
+{
+	return (arr[0] << 16 | arr[1] << 8 | arr[2]);
+}
+
+static int
 	ft_end_check(t_types *types)
 {
 	int	i;
@@ -15,10 +21,8 @@ static int
 	while (++i < 3)
 		if (types->floor[i] == -1 || types->ceiling[i] == -1)
 			return (FALSE);
-	types->floor_rgb =
-		(types->floor[0] << 16 | types->floor[1] << 8 | types->floor[2]);
-	types->ceiling_rgb =
-		(types->ceiling[0] << 16 | types->ceiling[1] << 8 | types->ceiling[2]);
+	types->floor_rgb = ft_arr_rgb(types->floor);
+	types->ceiling_rgb = ft_arr_rgb(types->ceiling);
 	return (TRUE);
 }
 

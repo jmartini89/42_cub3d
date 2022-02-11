@@ -13,10 +13,10 @@ void
 	mlx_mouse_get_pos(core->win, &core->input.mouse_x, &core->input.mouse_y);
 	if (mouse != core->input.mouse_x)
 		ft_rotation(&core->map, MOUSE, mouse - core->input.mouse_x);
-	if (core->input.mouse_x >= core->frame.w || core->input.mouse_x <= core->frame.w)
+	if (core->input.mouse_x >= FRAME_W || core->input.mouse_x <= FRAME_W)
 	{
-		mlx_mouse_move(core->win, core->frame.w / 2, core->frame.h / 2);
-		core->input.mouse_x = core->frame.w / 2;
+		mlx_mouse_move(core->win, FRAME_W / 2, core->frame.h / 2);
+		core->input.mouse_x = FRAME_W / 2;
 	}
 }
 
