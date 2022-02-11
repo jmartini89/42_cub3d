@@ -23,10 +23,7 @@ static int
 	// printf("%f\n", delta / 1000.0);
 
 	if (core->input.exit)
-	{
-		exit(0);
-		// ft_exit(core);
-	}
+		ft_exit(core);
 	return (1);
 }
 
@@ -42,6 +39,5 @@ int
 	ft_event_hook(&core);
 	mlx_loop_hook(core.mlx, ft_engine, &core);
 	mlx_loop(core.mlx);
-	ft_garbage_collector(&core);
 	return (EXIT_SUCCESS);
 }

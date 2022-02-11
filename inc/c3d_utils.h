@@ -20,7 +20,7 @@
 # define ERR_MLX_XPM "MLX: XPM to IMG load failed"
 
 int		get_next_line(int fd, char **line);
-void	ft_garbage_collector(t_core *core);
 void	ft_fail(char *str);
+void	ft_exit(t_core *core);
 
 #endif
