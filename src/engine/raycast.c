@@ -77,9 +77,8 @@ static void
 		rc->perp_wall_dist = (rc->side_dist[X] - rc->delta_dist[X]);
 	else
 		rc->perp_wall_dist = (rc->side_dist[Y] - rc->delta_dist[Y]);
-	if ((int)rc->perp_wall_dist == 0)
-		rc->perp_wall_dist = 1;
-	rc->line_height = (int)(FRAME_H / rc->perp_wall_dist);
+	if ((round(rc->perp_wall_dist * 100) / 100) != 0.0)
+		rc->line_height = (int)(FRAME_H / rc->perp_wall_dist);
 	rc->draw_start = -rc->line_height / 2 + FRAME_H / 2;
 	if (rc->draw_start < 0)
 		rc->draw_start = 0;
@@ -110,13 +109,10 @@ static void
 	else
 		rc->wall_x = map->player[X] + rc->perp_wall_dist * rc->ray_dir[X];
 	rc->wall_x -= floor(rc->wall_x);
-	rc->tex[X] = (int)rc->wall_x * (double)TEX_W;
+	rc->tex[X] = rc->wall_x * TEX_W;
 	if ((rc->side == 0 && rc->ray_dir[X] > 0)
 		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
 		rc->tex[X] = TEX_W - rc->tex[X] - 1;
-	rc->tex_step = 1.0 * TEX_H / rc->line_height;
-	rc->tex_pos = (
-		(rc->draw_start - FRAME_H / 2 + rc->line_height / 2) * rc->tex_step);
 }
 
 void

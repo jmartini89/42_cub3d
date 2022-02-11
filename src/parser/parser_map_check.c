@@ -12,13 +12,13 @@ static void
 	map->player[Y] = y + 0.5;
 	map->player[X] = x + 0.5;
 	if (map->map[y][x] == NORTH)
-		map->dir[Y] = (int)-1;
+		map->dir[Y] = -1;
 	if (map->map[y][x] == SOUTH)
-		map->dir[Y] = (int)1;
+		map->dir[Y] = 1;
 	if (map->map[y][x] == EAST)
-		map->dir[X] = (int)1;
+		map->dir[X] = 1;
 	if (map->map[y][x] == WEST)
-		map->dir[X] = (int)-1;
+		map->dir[X] = -1;
 	map->map[y][x] = FLOOR;
 }
 

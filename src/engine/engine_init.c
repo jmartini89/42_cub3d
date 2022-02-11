@@ -17,6 +17,7 @@ static void
 			ft_fail(ERR_MLX_XPM);
 		core->tex[i].addr = mlx_get_data_addr(
 			core->tex[i].img, &core->tex[i].bpp, &core->tex[i].size_line, &core->tex[i].endian);
+		core->tex[i].pixel = core->tex[i].bpp / 8;
 		free(core->types.textures[i]);
 		core->types.textures[i] = NULL;
 	}
