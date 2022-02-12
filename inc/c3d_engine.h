@@ -18,8 +18,6 @@
 
 # define FRAME_W 800
 # define FRAME_H 600
-# define TEX_W 64
-# define TEX_H 64
 
 void	ft_engine_init(t_core *core);
 

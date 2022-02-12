@@ -35,17 +35,17 @@ static t_img *
 }
 
 static void
-	ft_tex_calc(t_raycast *rc, t_map *map)
+	ft_tex_calc(t_raycast *rc, t_map *map, t_img *tex)
 {
 	if (rc->side == 0)
 		rc->wall_x = map->player[Y] + rc->perp_wall_dist * rc->ray_dir[Y];
 	else
 		rc->wall_x = map->player[X] + rc->perp_wall_dist * rc->ray_dir[X];
 	rc->wall_x -= floor(rc->wall_x);
-	rc->tex[X] = rc->wall_x * TEX_W;
+	rc->tex[X] = rc->wall_x * tex->w;
 	if ((rc->side == 0 && rc->ray_dir[X] > 0)
 		|| (rc->side == 1 && rc->ray_dir[Y] < 0))
-		rc->tex[X] = TEX_W - rc->tex[X] - 1;
+		rc->tex[X] = tex->w - rc->tex[X] - 1;
 }
 
 void
@@ -70,7 +70,7 @@ void
 		ft_dda(&core->map, rc);
 		ft_distances(rc);
 		texture = ft_wall_tex_picker(rc, core);
-		ft_tex_calc(rc, &core->map);
+		ft_tex_calc(rc, &core->map, texture);
 		ft_ver_tex(&core->frame, texture, rc, index);
 	}
 }

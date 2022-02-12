@@ -22,13 +22,13 @@ void
 	double	tex_step;
 	double	tex_pos;
 
-	tex_step = 1.0 * TEX_H / rc->line_height;
+	tex_step = 1.0 * texture->w / rc->line_height;
 	tex_pos = (
 			(rc->draw_start - FRAME_H / 2 + rc->line_height / 2) * tex_step);
 	y = rc->draw_start;
 	while (y <= rc->draw_end)
 	{
-		rc->tex[Y] = (int)tex_pos & (TEX_H - 1);
+		rc->tex[Y] = (int)tex_pos & (texture->w - 1);
 		tex_pos += tex_step;
 		color = texture->addr
 			+ (texture->size_line * rc->tex[X]) + (rc->tex[Y] * texture->pixel);
