@@ -12,6 +12,8 @@ static void
 		rc->perp_wall_dist = (rc->side_dist[Y] - rc->delta_dist[Y]);
 	if ((round(rc->perp_wall_dist * 100) / 100) != 0.0)
 		rc->line_height = (int)(FRAME_H / rc->perp_wall_dist);
+	else
+		rc->line_height = FRAME_H;
 	rc->draw_start = -rc->line_height / 2 + FRAME_H / 2;
 	if (rc->draw_start < 0)
 		rc->draw_start = 0;

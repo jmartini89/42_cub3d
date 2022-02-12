@@ -5,6 +5,7 @@
 
 #define KEYSPEED 0.05
 #define MOUSPEED -0.0075
+#define TOLERANCE 0.5
 
 static void
 	ft_execute_movement(t_map *map, double dir_x, double dir_y)
