@@ -13,7 +13,7 @@ void
 	mlx_mouse_get_pos(core->win, &core->input.mouse_x, &core->input.mouse_y);
 	if (mouse != core->input.mouse_x)
 		ft_rotation(&core->map, MOUSE, mouse - core->input.mouse_x);
-	if (core->input.mouse_x >= FRAME_W || core->input.mouse_x <= FRAME_W)
+	if (core->input.mouse_x <= 0 || core->input.mouse_x >= FRAME_W)
 	{
 		mlx_mouse_move(core->win, FRAME_W / 2, core->frame.h / 2);
 		core->input.mouse_x = FRAME_W / 2;
