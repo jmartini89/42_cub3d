@@ -60,6 +60,8 @@ void
 		ret = get_next_line(fd, &line);
 		if (ret == -1)
 			ft_fail(ERR_GNL);
+		if (!ft_strlen(line) && map->map)
+			ft_fail(ERR_PARSE_MAP);
 		if (!ft_strlen(line) && !map->map)
 			free(line);
 		else
