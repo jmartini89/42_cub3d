@@ -5,8 +5,10 @@
 
 # define ERR_GENERIC "Generic"
 
+# define ERR_GNL "Get Next Line: bad (FD || ADDRESS || MALLOC)"
 # define ERR_PARSE_EXT "Bad file extension"
 # define ERR_PARSE_MAP "Parsing: Not a valid map"
+# define ERR_PARSE_CHAR "Parsing: Not a valid map element"
 # define ERR_PARSE_SPAWN "Parsing: Not a valid spawn"
 # define ERR_PARSE_TYPE "Parsing: Not a valid type"
 # define ERR_PARSE_TYPE_ARGS_LINE "Parsing: Wrong number of type args in line"

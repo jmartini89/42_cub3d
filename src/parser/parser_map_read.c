@@ -58,9 +58,17 @@ void
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
-		ft_map_save(line, map, i);
-		i++;
+		if (ret == -1)
+			ft_fail(ERR_GNL);
+		if (!ft_strlen(line) && !map->map)
+			free(line);
+		else
+		{
+			ft_map_save(line, map, i);
+			i++;
+		}
 	}
 	map->height = i;
+	printf("%d %d\n", map->width, map->height);
 	ft_map_resize(map);
 }

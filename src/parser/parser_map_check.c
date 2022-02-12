@@ -56,7 +56,7 @@ static void
 {
 	if (c != SPACE && c != FLOOR && c != WALL
 		&& c != NORTH && c != SOUTH && c != EAST && c != WEST)
-		ft_fail(ERR_GENERIC);
+		ft_fail(ERR_PARSE_CHAR);
 	return ;
 }
 
