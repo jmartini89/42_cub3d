@@ -29,7 +29,6 @@ void	ft_movement(t_map *map, int key);
 void	ft_rotation(t_map *map, int type, int value);
 
 void	ft_draw(t_core *core);
-void	ft_pixel_put(t_img *img, int x, int y, unsigned int color);
 void	ft_ver_tex(
 			t_img *frame, t_img *texture, t_raycast *rc, int x);
 

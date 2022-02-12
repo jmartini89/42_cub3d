@@ -2,7 +2,9 @@
 #include "c3d_core.h"
 #include "c3d_engine.h"
 
-void
+#define LOGO_OFFSET 25
+
+static void
 	ft_pixel_put(t_img *img, int x, int y, unsigned int color)
 {
 	char	*dst;
@@ -31,7 +33,8 @@ void
 		rc->tex[Y] = (int)tex_pos & (texture->w - 1);
 		tex_pos += tex_step;
 		color = texture->addr
-			+ (texture->size_line * rc->tex[X]) + (rc->tex[Y] * texture->pixel);
+			+ (texture->size_line * rc->tex[X])
+			+ (texture->pixel * rc->tex[Y]);
 		ft_pixel_put(frame, x, y, *(unsigned int *)color);
 		y++;
 	}
@@ -65,10 +68,38 @@ static void
 	}
 }
 
+static void
+	ft_logo(t_img *frame, t_img *logo)
+{
+	static int	counter;
+	char		*color;
+	int			y;
+	int			x;
+
+	y = -1;
+	while (++y < logo->h / 60)
+	{
+		x = -1;
+		while (++x < logo->w)
+		{
+			color = logo->addr + (logo->size_line * y) + (logo->pixel * x)
+				+ (logo->size_line * counter * (logo->h / 60));
+			ft_pixel_put(frame,
+				x + FRAME_W - logo->w - LOGO_OFFSET,
+				y + LOGO_OFFSET,
+				*(unsigned int *)color);
+		}
+	}
+	counter++;
+	if (counter == 60)
+		counter = 0;
+}
+
 void
 	ft_draw(t_core *core)
 {
 	ft_background(
 		&core->frame, core->types.ceiling_rgb, core->types.floor_rgb);
 	ft_raycast(core);
+	ft_logo(&core->frame, &core->logo);
 }

@@ -4,6 +4,20 @@
 #include "c3d_utils.h"
 
 static void
+	ft_logo(t_core *core)
+{
+	core->logo.img = mlx_xpm_file_to_image(
+			core->mlx, "./textures/42.xpm",
+			&core->logo.w, &core->logo.h);
+	if (core->logo.img == NULL)
+		ft_fail(ERR_MLX_XPM);
+	core->logo.addr = mlx_get_data_addr(
+			core->logo.img, &core->logo.bpp,
+			&core->logo.size_line, &core->logo.endian);
+	core->logo.pixel = core->logo.bpp / 8;
+}
+
+static void
 	ft_textures(t_core *core)
 {
 	int	i;
@@ -57,5 +71,6 @@ void
 	if (core->mlx == NULL)
 		ft_fail(ERR_MLX_INIT);
 	ft_textures(core);
+	ft_logo(core);
 	ft_win_frame(core);
 }

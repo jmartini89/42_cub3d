@@ -71,6 +71,5 @@ void
 		}
 	}
 	map->height = i;
-	printf("%d %d\n", map->width, map->height);
 	ft_map_resize(map);
 }

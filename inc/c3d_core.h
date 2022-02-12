@@ -71,6 +71,7 @@ typedef struct s_core
 	t_map		map;
 	t_types		types;
 	t_img		frame;
+	t_img		logo;
 	t_img		tex[4];
 	t_input		input;
 	t_raycast	raycast;
