@@ -13,7 +13,8 @@ static void
 	}
 	mlx_mouse_hide();
 	mlx_mouse_get_pos(core->win, &core->input.mouse_x, &core->input.mouse_y);
-	if (core->input.mouse_x <= 0 || core->input.mouse_x >= FRAME_W)
+	if (core->input.mouse_x <= 0 || core->input.mouse_x >= FRAME_W
+		|| core->input.mouse_y <= 0 || core->input.mouse_y >= FRAME_H)
 	{
 		mlx_mouse_move(core->win, FRAME_W / 2, core->frame.h / 2);
 		core->input.mouse_x = FRAME_W / 2;
