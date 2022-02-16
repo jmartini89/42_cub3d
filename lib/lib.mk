@@ -15,5 +15,5 @@ libmlx.dylib :
 
 clean :
 	@rm -f libft.a
-#	@rm -f ../libmlx.dylib
+	@rm -f libmlx.dylib ../libmlx.dylib
 	@echo "\033[33mlibraries clean completed\033[0m"
