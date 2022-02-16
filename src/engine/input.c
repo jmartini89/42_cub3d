@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jm & mc <jmartini & mcrisari>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 15:11:19 by jm & mc           #+#    #+#             */
+/*   Updated: 2022/02/16 15:11:20 by jm & mc          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "c3d_libs.h"
 #include "c3d_core.h"
 #include "c3d_engine.h"
@@ -13,10 +25,11 @@ void
 	mlx_mouse_get_pos(core->win, &core->input.mouse_x, &core->input.mouse_y);
 	if (mouse != core->input.mouse_x)
 		ft_rotation(&core->map, MOUSE, mouse - core->input.mouse_x);
-	if (core->input.mouse_x >= core->frame.w || core->input.mouse_x <= core->frame.w)
+	if (core->input.mouse_x <= 0 || core->input.mouse_x >= FRAME_W
+		|| core->input.mouse_y <= 0 || core->input.mouse_y >= FRAME_H)
 	{
-		mlx_mouse_move(core->win, core->frame.w / 2, core->frame.h / 2);
-		core->input.mouse_x = core->frame.w / 2;
+		mlx_mouse_move(core->win, FRAME_W / 2, core->frame.h / 2);
+		core->input.mouse_x = FRAME_W / 2;
 	}
 }
 

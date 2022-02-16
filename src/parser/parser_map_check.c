@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_map_check.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jm & mc <jmartini & mcrisari>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 15:11:10 by jm & mc           #+#    #+#             */
+/*   Updated: 2022/02/16 15:11:11 by jm & mc          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "c3d_libs.h"
 #include "c3d_parser.h"
 #include "c3d_utils.h"
@@ -12,13 +24,13 @@ static void
 	map->player[Y] = y + 0.5;
 	map->player[X] = x + 0.5;
 	if (map->map[y][x] == NORTH)
-		map->dir[Y] = (int)-1;
+		map->dir[Y] = -1;
 	if (map->map[y][x] == SOUTH)
-		map->dir[Y] = (int)1;
+		map->dir[Y] = 1;
 	if (map->map[y][x] == EAST)
-		map->dir[X] = (int)1;
+		map->dir[X] = 1;
 	if (map->map[y][x] == WEST)
-		map->dir[X] = (int)-1;
+		map->dir[X] = -1;
 	map->map[y][x] = FLOOR;
 }
 
@@ -56,7 +68,7 @@ static void
 {
 	if (c != SPACE && c != FLOOR && c != WALL
 		&& c != NORTH && c != SOUTH && c != EAST && c != WEST)
-		ft_fail(ERR_GENERIC);
+		ft_fail(ERR_PARSE_CHAR);
 	return ;
 }
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jm & mc <jmartini & mcrisari>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 15:11:16 by jm & mc           #+#    #+#             */
+/*   Updated: 2022/02/16 15:11:17 by jm & mc          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "c3d_libs.h"
 #include "c3d_core.h"
 #include "c3d_parser.h"
@@ -5,6 +17,7 @@
 
 #define KEYSPEED 0.05
 #define MOUSPEED -0.0075
+#define TOLERANCE 0.5
 
 static void
 	ft_execute_movement(t_map *map, double dir_x, double dir_y)

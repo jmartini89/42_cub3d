@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_map_read.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jm & mc <jmartini & mcrisari>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/16 15:11:08 by jm & mc           #+#    #+#             */
+/*   Updated: 2022/02/16 15:36:32 by jm & mc          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "c3d_libs.h"
 #include "c3d_parser.h"
 #include "c3d_utils.h"
@@ -19,12 +31,9 @@ static void
 	while (tmp && i && ++j <= i)
 		map->map[j] = tmp[j];
 	map->map[i] = line;
-	if (i)
-	{
-		if (map->width < (int)ft_strlen(map->map[i]))
-			map->width = (int)ft_strlen(map->map[i]);
-		free(tmp);
-	}
+	if (map->width < (int)ft_strlen(map->map[i]))
+		map->width = (int)ft_strlen(map->map[i]);
+	free(tmp);
 }
 
 static void
@@ -58,8 +67,17 @@ void
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
-		ft_map_save(line, map, i);
-		i++;
+		if (ret == -1)
+			ft_fail(ERR_GNL);
+		if (!ft_strlen(line) && map->map)
+			ft_fail(ERR_PARSE_MAP);
+		if (!ft_strlen(line) && !map->map)
+			free(line);
+		else
+		{
+			ft_map_save(line, map, i);
+			i++;
+		}
 	}
 	map->height = i;
 	ft_map_resize(map);
