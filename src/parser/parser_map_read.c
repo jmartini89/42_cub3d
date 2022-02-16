@@ -6,7 +6,7 @@
 /*   By: jm & mc <jmartini & mcrisari>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:11:08 by jm & mc           #+#    #+#             */
-/*   Updated: 2022/02/16 15:11:09 by jm & mc          ###   ########.fr       */
+/*   Updated: 2022/02/16 15:36:32 by jm & mc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,9 @@ static void
 	while (tmp && i && ++j <= i)
 		map->map[j] = tmp[j];
 	map->map[i] = line;
-	if (i)
-	{
-		if (map->width < (int)ft_strlen(map->map[i]))
-			map->width = (int)ft_strlen(map->map[i]);
-		free(tmp);
-	}
+	if (map->width < (int)ft_strlen(map->map[i]))
+		map->width = (int)ft_strlen(map->map[i]);
+	free(tmp);
 }
 
 static void
